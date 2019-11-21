@@ -10,7 +10,8 @@ module.exports = {
             {
                 test: /\.jsx?$/,
                 loader: 'babel-loader'
-            }
+            },
+            { test: /\.css$/, loader: "style-loader!css-loader" },
         ]
     },
     plugins: [new HtmlWebpackPlugin({
@@ -24,5 +25,11 @@ module.exports = {
         config: JSON.stringify({
             apiUrl: 'http://localhost:9090/api'
         })
-    }
+    },
+    // resolve: {
+    //     extensions: ['', '.js', '.jsx', '.css'],
+    //     modulesDirectories: [
+    //         'node_modules'
+    //     ]
+    // }
 }

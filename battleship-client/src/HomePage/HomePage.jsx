@@ -20,6 +20,9 @@ class HomePage extends React.Component {
                 <h1>Hi {user.username}!</h1>
                 <p>You're logged in with React!!</p>
                 <p>
+                    <Link to="/game/start">Start Game</Link>
+                </p>
+                <p>
                     <Link to="/login">Logout</Link>
                 </p>
             </div>
