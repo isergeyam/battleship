@@ -10,8 +10,6 @@ import lombok.Setter;
 /**
  * TurnRequest
  */
-@AllArgsConstructor
-@NoArgsConstructor
 @Getter
 @Setter
 public class TurnRequest {

@@ -1,5 +1,7 @@
 package com.isergeyam.battleship.service;
 
+import java.util.ArrayList;
+
 import org.springframework.data.util.Pair;
 
 import lombok.AllArgsConstructor;
@@ -15,7 +17,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Board {
-  private Ship[] ships;
+  private ArrayList<Ship> ships;
 
   public HitResult Hit(Pair<Integer, Integer> coord) {
     for (Ship ship : ships) {

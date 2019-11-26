@@ -46,7 +46,7 @@ public class UserGamePlayer extends GamePlayer {
   }
 
   @Override
-  public void NotifyTurn(HitResult result) {
+  public synchronized void NotifyTurn(HitResult result) {
     this.opt_result = Optional.of(result);
     notify();
   }
@@ -59,7 +59,7 @@ public class UserGamePlayer extends GamePlayer {
   }
 
   @Override
-  public void WaitTurn() {
+  public synchronized void WaitTurn() {
     while (!this.opt_result.isPresent()) {
       try {
         wait();

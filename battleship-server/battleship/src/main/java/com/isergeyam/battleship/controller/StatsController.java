@@ -1,6 +1,5 @@
 package com.isergeyam.battleship.controller;
 
-import java.util.HashMap;
 import java.util.Hashtable;
 
 import javax.validation.Valid;

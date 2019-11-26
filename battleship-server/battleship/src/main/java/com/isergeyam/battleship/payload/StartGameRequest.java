@@ -1,6 +1,8 @@
 package com.isergeyam.battleship.payload;
 
-import com.isergeyam.battleship.service.Board;
+import java.util.ArrayList;
+
+import com.isergeyam.battleship.service.Ship;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -17,5 +19,5 @@ import lombok.Setter;
 public class StartGameRequest {
   private String token;
   private boolean playWithAI;
-  private Board board;
+  private ArrayList<Ship> ships;
 }

@@ -8,12 +8,12 @@ import javax.validation.Valid;
 import com.isergeyam.battleship.model.User;
 import com.isergeyam.battleship.payload.StartGameRequest;
 import com.isergeyam.battleship.payload.TurnRequest;
+import com.isergeyam.battleship.service.Board;
 import com.isergeyam.battleship.service.GamePlayer;
 import com.isergeyam.battleship.service.GameService;
 import com.isergeyam.battleship.service.UserGamePlayer;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.util.Pair;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -48,8 +48,9 @@ public class GameController {
           new ResponseEntity<>(new ApiResponse<>(false, "Unathorized", "Unathorized"), HttpStatus.UNAUTHORIZED));
       return output;
     }
+    Board board = new Board(startGameRequest.getShips());
     User user = currentlyLoggedUser.get(token);
-    GamePlayer player = new UserGamePlayer(user, token, output, startGameRequest.getBoard());
+    GamePlayer player = new UserGamePlayer(user, token, output, board);
     gamePlayers.put(token, player);
     gameService.addPlayer(player);
     return output;
@@ -57,6 +58,7 @@ public class GameController {
 
   @PostMapping("/wait")
   public DeferredResult<ResponseEntity<?>> waitForTurn(@Valid @RequestBody String token) {
+    token = token.replaceAll("^\"|\"$", "");
     DeferredResult<ResponseEntity<?>> output = new DeferredResult<>(Long.valueOf(100500));
     if (!currentlyLoggedUser.containsKey(token)) {
       output.setResult(
