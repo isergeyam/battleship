@@ -6,6 +6,7 @@ export const userService = {
     login,
     logout,
     register,
+    handleResponse
 };
 
 function login(userNameOrEmail, password) {

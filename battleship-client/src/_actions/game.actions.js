@@ -1,4 +1,5 @@
 import { history } from '../_helpers';
+import { userService } from '../_services';
 
 import {
   ATTACK_SHIP,
@@ -14,6 +15,7 @@ import {
   TOGGLE_TURN,
   UPDATE_MESSAGE,
 } from '../_helpers/action-types';
+import axios from '../_helpers/axios';
 
 export function attackShip(enemy, enemyShip) {
   return {
@@ -59,16 +61,48 @@ export function playerTwoAttack(coordinates) {
   };
 };
 
-export function navigateNext(pathname) {
-  return (dispatch) => {
-    switch (pathname) {
-      case '/player-one':
-        return dispatch(push('/player-two'));
-      case '/player-two':
-        return dispatch(push('/ready/player-one'));
-      default:
-        return;
+export function SubmitOnServer(ships, token) {
+  let requestData = {};
+
+  requestData['playWithAI'] = false;
+  requestData.token = token;
+
+  console.log(requestData);
+
+  let ships_dict = new Proxy({}, {
+    get: (target, name) => {
+      if (!(name in target)) {
+        target[name] = {
+          coords: []
+        }
+      }
+      return target[name];
     }
+  });
+
+  for (const [coords, name] of Object.entries(ships)) {
+    let coords_num = coords.split(',').map(Number);
+    console.log(name, coords_num);
+    ships_dict[name].coords.push(coords_num);
+    ships_dict[name].name = name
+    console.log(ships_dict[name]);
+  }
+  let ships_arr = Object.values(ships_dict);
+  requestData.board = ships_arr;
+
+  console.log(requestData);
+
+  return (dispatch) => {
+    axios.post('/game/start', requestData)
+    .then(userService.handleResponse)
+    .then(response => {
+      if (response == "start") {
+        history.push("/ready/player-one");
+      }
+      else if (response == "wait") {
+        history.push("/ready/player-two")
+      }
+    })
   };
 };
 
@@ -89,7 +123,7 @@ export function selectShip(ship) {
   return { type: SELECT_SHIP, payload: ship };
 };
 
-export function setShip(player, shipName, coordinates)  {
+export function setShip(player, shipName, coordinates) {
   return {
     type: SET_SHIP,
     payload: {

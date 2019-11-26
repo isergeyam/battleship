@@ -2,7 +2,7 @@ import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import {
-  navigateNext,
+  SubmitOnServer,
   setShip,
 } from '../_actions';
 import Board from '../_components/Board';
@@ -46,11 +46,11 @@ class SetUpContainer extends React.Component {
 
   buttonClickHandler = () => {
     const {
-      navigateNext,
-      pathname,
+      playerShips,
+      playerToken
     } = this.props;
 
-    navigateNext(pathname);
+    SubmitOnServer(playerShips, playerToken);
   };
 
   clickHandler = (e) => {
@@ -153,6 +153,7 @@ const mapStateToProps = (state) => {
     player,
     orientation: state.board.orientation,
     playerName: user.username,
+    playerToken: user.token,
     playerShips: state.board[player],
     shipLength: state.board.shipLength,
     shipSelected: state.board.shipSelected,
@@ -161,7 +162,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({
-    navigateNext,
+    SubmitOnServer,
     setShip,
   }, dispatch);
 };
