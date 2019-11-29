@@ -1,0 +1,24 @@
+.home-main {
+  flex: 0%;
+  background-color: rgb(219, 132, 132);
+  /* border-style: solid; */
+  margin-left: 0%;
+  padding: 2%;
+}
+
+.home-left_column {
+  width: 70%;
+  padding: 10px;
+  background-color: rgb(146, 146, 146);
+}
+
+.home-right_column {
+  padding: 10px;
+  width: 30%;
+  background-color: rgb(83, 83, 83);
+}
+
+
+.home-row {  
+  display: flex;
+}

@@ -1,0 +1,96 @@
+* {
+  box-sizing: border-box;
+}
+
+ul {
+  float: left;
+  padding-left: 10px;
+}
+
+
+
+.main-main {
+  flex: 0%;
+  background-color: rgb(104, 52, 52);
+  border-block-color: black;
+  border-style: solid;
+  padding: 20px;
+}
+
+.main-left_column {
+  width: 70%;
+  padding: 10px;
+  background-color: rgb(146, 146, 146);
+}
+
+.main-right_column {
+  padding: 10px;
+  width: 30%;
+  background-color: rgb(83, 83, 83);
+}
+
+
+.main-row {  
+  display: flex;
+}
+
+
+.link {
+  color: black;
+}
+
+.fakeimg {
+  background-color: rgb(0, 0, 0);
+  width: 100%;
+  padding: 20px;
+}
+
+.topnav {
+  background-color: rgb(196, 98, 98);
+  overflow: hidden;
+  position: sticky;
+  position: -webkit-sticky;
+  top: 0;
+  width: 100%;
+}
+
+.topnav a {
+  color: rgb(150, 60, 60);
+  float: left;
+  display: block;
+  color: rgb(255, 255, 255);
+  text-align: center;
+  padding: 14px 20px;
+  text-decoration: none;
+}
+
+.topnav a:hover {
+  background-color: rgb(32, 32, 32);
+  color: white;
+}
+
+.topnav a.right {
+  float: right;
+}
+
+.topnav a.active {
+  background-color: rgb(32, 32, 32);
+  color: white;
+}
+
+.header {
+    height: 80px;
+    position: fixed;
+    width: 100%;
+    left: 0;
+    top: 0;
+    background-color: rgb(46, 46, 46);
+}
+
+
+@media screen and (max-width: 400px) {
+  .navbar a {
+    float: none;
+    width: 100%;
+  }
+}

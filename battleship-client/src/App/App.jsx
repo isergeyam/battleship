@@ -8,6 +8,7 @@ import { PrivateRoute } from '../_components';
 import { HomePage } from '../HomePage';
 import { LoginPage } from '../LoginPage';
 import { RegisterPage } from '../RegisterPage';
+import { MainPage } from '../MainPage';
 import { GameContainer } from '../_containers/GameContainer'
 import { SetUpContainer } from '../_containers/SetUpContainer'
 import { WelcomeContainer } from '../_containers/WelcomeContainer'
@@ -25,26 +26,23 @@ class App extends React.Component {
     render() {
         const { alert } = this.props;
         return (
-            <div className="jumbotron">
-                <div className="container">
-                    <div className="col-sm-8 col-sm-offset-2">
-                        {alert.message &&
-                            <div className={`alert ${alert.type}`}>{alert.message}</div>
-                        }
-                        <Router history={history}>
-                            <Switch>
-                                <PrivateRoute exact path="/" component={HomePage} />
-                                <Route path="/login" component={LoginPage} />
-                                <Route path="/register" component={RegisterPage} />
-                                <PrivateRoute path='/game/start' component={WelcomeContainer}/>
-                                <PrivateRoute path='/player-one' component={SetUpContainer} />
-                                <PrivateRoute path='/player-two' component={SetUpContainer} />
-                                <PrivateRoute path='/ready/player' component={GameContainer} />
-                                <Redirect from="*" to="/" />
-                            </Switch>
-                        </Router>
-                    </div>
-                </div>
+            <div>
+                {alert.message &&
+                    <div className={`alert ${alert.type}`}>{alert.message}</div>
+                }
+                <Router history={history}>
+                    <Switch>
+                        <PrivateRoute exact path="/game" component={HomePage} />
+                        <Route path="/login" component={LoginPage} />
+                        <Route path="/register" component={RegisterPage} />
+                        <PrivateRoute path='/game/start' component={WelcomeContainer} />
+                        <PrivateRoute path='/player-one' component={SetUpContainer} />
+                        <PrivateRoute path='/player-two' component={SetUpContainer} />
+                        <PrivateRoute path='/ready/player' component={GameContainer} />
+                        <Route exact path='/' component={MainPage} />
+                        <Redirect from="*" to="/" />
+                    </Switch>
+                </Router>
             </div>
         );
     }
