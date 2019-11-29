@@ -12,7 +12,7 @@ import {
 import { togglePlayer } from '../_helpers/toggle-player';
 import Board from '../_components/Board';
 import Button from '../_components/';
-// import Message from '../components/Message';
+import Message from '../_components/Message';
 
 class GameContainer extends React.Component {
   componentDidMount() {
@@ -111,13 +111,16 @@ class GameContainer extends React.Component {
     return (
       <div className='main'>
         <h1>{playerName}</h1>
-        {/* {<Message message={message} />} */}
+        {<Message message={message} />}
         <Board
           board={board}
           clickHandler={this.clickHandler}
           mouseOverHandler={this.mouseOverHandler}
         />
-        <Button clickHandler={this.buttonClickHandler} />
+        <Board
+          board={board}
+          clickHandler={(e) => { }}
+          mouseOverHandler={(e) => { }} />
       </div>
     );
   };

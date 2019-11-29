@@ -55,7 +55,11 @@ public class UserGamePlayer extends GamePlayer {
   public void TakeTurn(Pair<Integer, Integer> turn) {
     HitResult result = enemyPlayer.getBoard().Hit(turn);
     enemyPlayer.NotifyTurn(result);
-    output.setResult(ResponseEntity.ok(new ApiResponse<HitResult>(true, "hit result", result)));
+    if (enemyPlayer.getBoard().AllSunk()) {
+      output.setResult(ResponseEntity.ok(new ApiResponse<>(true, "win", "win")));
+    } else {
+      output.setResult(ResponseEntity.ok(new ApiResponse<>(true, "hit result", result)));
+    }
   }
 
   @Override
@@ -67,6 +71,11 @@ public class UserGamePlayer extends GamePlayer {
       }
     }
     HitResult result = opt_result.get();
-    output.setResult(ResponseEntity.ok(new ApiResponse<HitResult>(true, "hit result", result)));
+    opt_result = Optional.empty();
+    if (board.AllSunk()) {
+      output.setResult(ResponseEntity.ok(new ApiResponse<>(true, "lose", "lose")));
+    } else {
+      output.setResult(ResponseEntity.ok(new ApiResponse<>(true, "hit result", result)));
+    }
   }
 }

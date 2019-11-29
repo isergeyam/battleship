@@ -1,5 +1,6 @@
 import { history } from '../_helpers';
 import { userService } from '../_services';
+import { push } from 'react-router-redux';
 
 import {
   ATTACK_SHIP,
@@ -62,47 +63,49 @@ export function playerTwoAttack(coordinates) {
 };
 
 export function SubmitOnServer(ships, token) {
-  let requestData = {};
-
-  requestData['playWithAI'] = false;
-  requestData.token = token;
-
-  console.log(requestData);
-
-  let ships_dict = new Proxy({}, {
-    get: (target, name) => {
-      if (!(name in target)) {
-        target[name] = {
-          coords: []
-        }
-      }
-      return target[name];
-    }
-  });
-
-  for (const [coords, name] of Object.entries(ships)) {
-    let coords_num = coords.split(',').map(Number);
-    console.log(name, coords_num);
-    ships_dict[name].coords.push(coords_num);
-    ships_dict[name].name = name
-    console.log(ships_dict[name]);
-  }
-  let ships_arr = Object.values(ships_dict);
-  requestData.board = ships_arr;
-
-  console.log(requestData);
-
   return (dispatch) => {
+    let requestData = {};
+
+    requestData['playWithAI'] = false;
+    requestData.token = token;
+
+    console.log(requestData);
+
+    let ships_dict = new Proxy({}, {
+      get: (target, name) => {
+        if (!(name in target)) {
+          target[name] = {
+            coords: []
+          }
+        }
+        return target[name];
+      }
+    });
+
+    for (const [coords, name] of Object.entries(ships)) {
+      let coords_num = coords.split(',').map(Number);
+      console.log(name, coords_num);
+      ships_dict[name].coords.push(coords_num);
+      ships_dict[name].name = name
+      console.log(ships_dict[name]);
+    }
+    let ships_arr = Object.values(ships_dict);
+    requestData.board = ships_arr;
+
+    console.log(requestData);
+
+    console.log("Sending request!!!");
     axios.post('/game/start', requestData)
-    .then(userService.handleResponse)
-    .then(response => {
-      if (response == "start") {
-        history.push("/ready/player-one");
-      }
-      else if (response == "wait") {
-        history.push("/ready/player-two")
-      }
-    })
+      .then(userService.handleResponse)
+      .then(response => {
+        console.log("Got response: ", response);
+        if (response == "start") {
+          return dispatch(push("/ready/player-one"));
+        }
+        else if (response == "wait") {
+          return dispatch(push("/ready/player-two"));
+        }
+      })
   };
 };
 

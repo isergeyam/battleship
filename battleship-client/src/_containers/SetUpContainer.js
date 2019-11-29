@@ -47,7 +47,8 @@ class SetUpContainer extends React.Component {
   buttonClickHandler = () => {
     const {
       playerShips,
-      playerToken
+      playerToken,
+      SubmitOnServer
     } = this.props;
 
     SubmitOnServer(playerShips, playerToken);
