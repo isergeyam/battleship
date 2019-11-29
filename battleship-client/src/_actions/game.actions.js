@@ -96,11 +96,12 @@ export function SubmitOnServer(ships, token) {
       .then(response => {
         console.log("Got response: ", response);
         if (response == "start") {
-          return dispatch(push("/ready/player-one"));
+          dispatch(setIsPlaying(true));
         }
         else if (response == "wait") {
-          return dispatch(push("/ready/player-two"));
+          dispatch(setIsPlaying(false));
         }
+        history.push("/ready/player");
       })
   };
 };

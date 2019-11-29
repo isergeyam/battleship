@@ -39,8 +39,7 @@ class App extends React.Component {
                                 <PrivateRoute path='/game/start' component={WelcomeContainer}/>
                                 <PrivateRoute path='/player-one' component={SetUpContainer} />
                                 <PrivateRoute path='/player-two' component={SetUpContainer} />
-                                <PrivateRoute path='/ready/player-one' component={GameContainer} />
-                                <PrivateRoute path='/ready/player-two' component={GameContainer} />
+                                <PrivateRoute path='/ready/player' component={GameContainer} />
                                 <Redirect from="*" to="/" />
                             </Switch>
                         </Router>
