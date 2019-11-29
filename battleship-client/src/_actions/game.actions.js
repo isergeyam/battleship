@@ -69,8 +69,6 @@ export function SubmitOnServer(ships, token) {
     requestData['playWithAI'] = false;
     requestData.token = token;
 
-    console.log(requestData);
-
     let ships_dict = new Proxy({}, {
       get: (target, name) => {
         if (!(name in target)) {
@@ -84,10 +82,8 @@ export function SubmitOnServer(ships, token) {
 
     for (const [coords, name] of Object.entries(ships)) {
       let coords_num = coords.split(',').map(Number);
-      console.log(name, coords_num);
       ships_dict[name].coords.push(coords_num);
       ships_dict[name].name = name
-      console.log(ships_dict[name]);
     }
     let ships_arr = Object.values(ships_dict);
     requestData.board = ships_arr;
