@@ -8,6 +8,8 @@ import {
   playerTwoAttack,
   toggleTurn,
   updateMessage,
+  submitTurnOnServer,
+  waitTurn,
 } from '../_actions';
 import { togglePlayer } from '../_helpers/toggle-player';
 import Board from '../_components/Board';
@@ -16,7 +18,22 @@ import Message from '../_components/Message';
 
 class GameContainer extends React.Component {
   componentDidMount() {
-    this.displayHitsAndMisses(this.props.enemyShips, this.props.attacks);
+    const {
+      attacks,
+      enemyAttacks,
+      waitTurn,
+      playerToken,
+      isPlaying
+    } = this.props;
+    const enemy_table = document.getElementsByTagName('table')[0];
+    const my_table = document.getElementsByTagName('table')[1];
+    this.displayHitsAndMisses(attacks, enemy_table);
+    this.displayHitsAndMisses(enemyAttacks, my_table);
+    console.log("I MOUNTED, isPlaying: ", isPlaying);
+    if (!isPlaying) {
+        console.log("GOING TO WAIT");
+      waitTurn(playerToken);
+    }
   }
 
   componentDidUpdate() {
@@ -26,31 +43,48 @@ class GameContainer extends React.Component {
       enemyShips,
       enemyShipsHealth,
       playerName,
+      enemyAttacks,
+      playerTurn
     } = this.props;
 
-    console.log('enemyShips coordinates: ', Object.keys(enemyShips));
-    console.log('enemyShips health: ', enemyShipsHealth);
-    this.displayHitsAndMisses(enemyShips, attacks);
+    // console.log('enemyShips coordinates: ', Object.keys(enemyShips));
+    // console.log('enemyShips health: ', enemyShipsHealth);
+    const enemy_table = document.getElementsByTagName('table')[0];
+    const my_table = document.getElementsByTagName('table')[1];
+    console.log('Player turn: ', playerTurn);
+    this.displayHitsAndMisses(attacks, enemy_table);
+    this.displayHitsAndMisses(enemyAttacks, my_table);
 
-    const hitsLeft =
-      Object.values(enemyShipsHealth).reduce((sum, health) => {
-        sum += health;
-        return sum;
-      }, 0);
+    // const hitsLeft =
+    //   Object.values(enemyShipsHealth).reduce((sum, health) => {
+    //     sum += health;
+    //     return sum;
+    //   }, 0);
 
-    if (hitsLeft === 0) {
-      endGame(playerName);
-    };
+    // if (hitsLeft === 0) {
+    //   endGame(playerName);
+    // };
   };
 
-  displayHitsAndMisses = (enemyShips, attacks) => {
-    const table = document.getElementsByTagName('table')[0];
+  displayHitsAndMisses = (attacks, table) => {
+    // const table = document.getElementsByTagName('table')[0];
+    console.log("Attacks: ", attacks);
 
     attacks.forEach(attack => {
-      let attackCoordinates = attack.split(',');
-      let cell = table.rows[attackCoordinates[0]].cells[attackCoordinates[1]];
-
-      enemyShips[attack] ? cell.classList.add('hit') : cell.classList.add('marker');
+      let [turn_x, turn_y, hit] = attack;
+      let cell = table.rows[turn_x].cells[turn_y];
+      console.log("Hit: ", hit);
+      switch (hit) {
+        case true:
+          cell.classList.add('hit');
+          break;
+        case false:
+          cell.classList.add('marker');
+          break;
+        case "sunk":
+          cell.classList.add('dead');
+          break;
+      }
     });
   };
 
@@ -74,12 +108,22 @@ class GameContainer extends React.Component {
       playerOneAttack,
       playerTwoAttack,
       updateMessage,
+      playerToken,
+      attacks,
+      submitTurnOnServer,
+      waitTurn
     } = this.props;
 
     if (!isPlaying) { return };
 
     const row = e.target.parentNode.rowIndex;
     const col = e.target.cellIndex;
+    const index = attacks.findIndex(obj => obj[0] === row && obj[1] === col);
+    if (index !== -1) {
+      return;
+    }
+    submitTurnOnServer(row, col, playerToken, waitTurn);
+    return;
     const attackCoordinates = `${row},${col}`;
     const playerAttackAction = playerTurn === 'playerOne' ? playerOneAttack : playerTwoAttack;
     const enemy = togglePlayer(playerTurn);
@@ -129,9 +173,11 @@ class GameContainer extends React.Component {
 const mapStateToProps = (state) => {
   const playerTurn = state.game.playerTurn;
   const enemy = togglePlayer(playerTurn);
+  let user = JSON.parse(localStorage.getItem('user'));
 
   return {
-    attacks: state.game[playerTurn],
+    attacks: state.game.attacks,
+    enemyAttacks: state.game.enemyAttacks,
     board: state.board.board,
     enemyShips: state.board[enemy],
     enemyShipsHealth: state.ships[enemy],
@@ -140,6 +186,7 @@ const mapStateToProps = (state) => {
     playerName: state.game[`${playerTurn}Name`],
     playerTurn,
     playerAttacks: state.game[playerTurn],
+    playerToken: user.token
   };
 };
 
@@ -151,6 +198,8 @@ const mapDispatchToProps = (dispatch) => {
     playerTwoAttack,
     toggleTurn,
     updateMessage,
+    submitTurnOnServer,
+    waitTurn
   }, dispatch);
 };
 

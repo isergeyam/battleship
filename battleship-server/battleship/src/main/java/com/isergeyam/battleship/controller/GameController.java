@@ -7,6 +7,7 @@ import javax.validation.Valid;
 
 import com.isergeyam.battleship.model.User;
 import com.isergeyam.battleship.payload.StartGameRequest;
+import com.isergeyam.battleship.payload.TokenRequest;
 import com.isergeyam.battleship.payload.TurnRequest;
 import com.isergeyam.battleship.service.Board;
 import com.isergeyam.battleship.service.GamePlayer;
@@ -57,8 +58,8 @@ public class GameController {
   }
 
   @PostMapping("/wait")
-  public DeferredResult<ResponseEntity<?>> waitForTurn(@Valid @RequestBody String token) {
-    token = token.replaceAll("^\"|\"$", "");
+  public DeferredResult<ResponseEntity<?>> waitForTurn(@Valid @RequestBody TokenRequest tokenRequest) {
+    String token = tokenRequest.getToken().replaceAll("^\"|\"$", "");
     DeferredResult<ResponseEntity<?>> output = new DeferredResult<>(Long.valueOf(100500));
     if (!currentlyLoggedUser.containsKey(token)) {
       output.setResult(

@@ -3,7 +3,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import {
   SubmitOnServer,
-  setShip,
+  setShip
 } from '../_actions';
 import Board from '../_components/Board';
 import Button from '../_components/Button';

@@ -2,9 +2,7 @@ package com.isergeyam.battleship.payload;
 
 import org.springframework.data.util.Pair;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**

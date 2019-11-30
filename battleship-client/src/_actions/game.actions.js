@@ -15,6 +15,8 @@ import {
   START_NEW_GAME,
   TOGGLE_TURN,
   UPDATE_MESSAGE,
+  PROCESS_TURN,
+  PROCESS_ENEMY_TURN
 } from '../_helpers/action-types';
 import axios from '../_helpers/axios';
 
@@ -86,7 +88,7 @@ export function SubmitOnServer(ships, token) {
       ships_dict[name].name = name
     }
     let ships_arr = Object.values(ships_dict);
-    requestData.board = ships_arr;
+    requestData.ships = ships_arr;
 
     console.log(requestData);
 
@@ -105,6 +107,45 @@ export function SubmitOnServer(ships, token) {
       })
   };
 };
+
+export function submitTurnOnServer(turn_x, turn_y, token, waitTurn) {
+  return (dispatch) => {
+    let turn_data = {}
+    turn_data['turn_x'] = turn_x
+    turn_data['turn_y'] = turn_y
+    turn_data['token'] = token
+    axios.post('/game/turn', turn_data)
+      .then(userService.handleResponse)
+      .then(response => {
+        console.log('Turn response: ', response);
+        dispatch(renderTurn(response['hit'], response['sunk'], turn_x, turn_y));
+        dispatch(setIsPlaying(false));
+        waitTurn(token);
+      })
+  }
+}
+
+export function waitTurn(token) {
+  return (dispatch) => {
+    console.log('Waiting for enemy turn...');
+    axios.post('/game/wait', { token: token, another_field: "" })
+      .then(userService.handleResponse)
+      .then(response => {
+        console.log('Wait for turn response: ', response);
+        const { hit, sunk, coords } = response;
+        dispatch(renderEnemyTurn(hit, sunk, coords.first, coords.second));
+        dispatch(setIsPlaying(true));
+      })
+  }
+}
+
+export function renderTurn(hit, sunk, turn_x, turn_y) {
+  return { type: PROCESS_TURN, payload: { hit, sunk, turn_x, turn_y } };
+}
+
+export function renderEnemyTurn(hit, sunk, turn_x, turn_y) {
+  return { type: PROCESS_ENEMY_TURN, payload: { hit, sunk, turn_x, turn_y } }
+}
 
 export function setPlayerNames(playerOne, playerTwo) {
   return (dispatch) => {

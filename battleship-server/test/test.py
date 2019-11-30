@@ -16,7 +16,8 @@ def make_turn(turn_payload, token, count) -> bool:
     if isinstance(turn['data'], str):
         return True
 
-    turn_text = requests.post(f'{API_URL}/game/wait', data=token).text
+    print(token)
+    turn_text = requests.post(f'{API_URL}/game/wait', json=token).text
     turn = json.loads(turn_text)
     print('Enemy turn: ' + turn_text)
 
@@ -37,11 +38,11 @@ login_request = requests.post(f'{API_URL}/login',
 
 print(login_request.text)
 
-token = json.loads(login_request.text)['data']['token']
+token_string = json.loads(login_request.text)['data']['token']
 
-print(token)
+print(token_string)
 
-START_GAME_REQUEST_PAYLOAD['token'] = token
+START_GAME_REQUEST_PAYLOAD['token'] = token_string
 
 start_game_request = requests.post(
     f'{API_URL}/game/start', json=START_GAME_REQUEST_PAYLOAD)
@@ -52,13 +53,15 @@ do_i_start = json.loads(start_game_request.text)['data'] == 'start'
 
 print(do_i_start)
 
-turn_payload = {'token': token}
+turn_payload = {'token': token_string}
+
+token_payload = {'token': token_string, 'another_field': ""}
 
 turn_count = 0
 
 if not do_i_start:
     print('Enemy turn:' +
-          requests.post(f'{API_URL}/game/wait', json=token).text)
+          requests.post(f'{API_URL}/game/wait', json=token_payload).text)
 
-while not make_turn(turn_payload, token, turn_count):
+while not make_turn(turn_payload, token_payload, turn_count):
     turn_count += 1

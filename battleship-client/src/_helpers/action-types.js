@@ -10,3 +10,5 @@ export const SET_SHIP = 'SET_SHIP';
 export const START_NEW_GAME = 'START_NEW_GAME';
 export const TOGGLE_TURN = 'TOGGLE_TURN';
 export const UPDATE_MESSAGE = 'UPDATE_MESSAGE';
+export const PROCESS_TURN = 'PROCESS_TURN';
+export const PROCESS_ENEMY_TURN = 'PROCESS_ENEMY_TURN';
