@@ -28,24 +28,18 @@ class HomePage extends React.Component {
     render() {
         const { user, users } = this.props;
         return (
-            <div>
-                <Header />
-                <div class="home-main">
-                    <div class="main-row">
-                        <div class="main-left_column">
-                            <h2>Hi {user.username}!</h2>
-                            <p>You're logged in with React!!</p>
-                            <p>
-                                <Link to="/game/start">Start Game</Link>
-                            </p>
-                        </div>
-                        <div class="main-right_column">
-                            <h2>Column 2</h2>
-                            <p>Some text..</p>
-                        </div>
-                    </div>
-
-                </div>
+            <div className="col-md-6 col-md-offset-3">
+                <h1>Hi {user.username}!</h1>
+                <p>You're logged in with React!!</p>
+                <p>
+                    <Link to="/game/start">Start Game</Link>
+                </p>
+                <p>
+                    <Link to="/login">Logout</Link>
+                </p>
+                <p>
+                <Link to="/ready/player">Resume Game</Link>
+                </p>
             </div>
         );
     }

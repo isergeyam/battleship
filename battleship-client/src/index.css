@@ -119,3 +119,8 @@ tr {
   background-color: #00ff00;
   transition: .5s;
 }
+
+.dead {
+  background-color: #000000;
+  transition: .5s;
+}
