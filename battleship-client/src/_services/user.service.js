@@ -6,7 +6,8 @@ export const userService = {
     login,
     logout,
     register,
-    handleResponse
+    handleResponse,
+    get_top_players
 };
 
 function login(userNameOrEmail, password) {
@@ -46,4 +47,13 @@ function handleResponse(response) {
     }
 
     return data.data;
+}
+
+function get_top_players() {
+    return axios.post("/top")
+        .then(handleResponse)
+        .then(response => {
+            console.log(response);
+            return (response.top_players_usernames, response.top_results);
+        })
 }

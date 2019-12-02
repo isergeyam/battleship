@@ -6,9 +6,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
-import javax.persistence.CascadeType;
+import javax.persistence.FetchType;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
@@ -48,9 +47,11 @@ public class User {
 
   private Long gamesWon;
 
-  @OneToMany(cascade = CascadeType.ALL)
-  @JoinColumn(name = "Id")
-  private Set<Game> accounts;
+  @OneToMany(fetch = FetchType.LAZY, mappedBy = "winner")
+  private Set<Game> won_games;
+
+  @OneToMany(fetch = FetchType.LAZY, mappedBy = "looser")
+  private Set<Game> lost_games;
 
   public User(String username, String email, String password) {
     this.username = username;

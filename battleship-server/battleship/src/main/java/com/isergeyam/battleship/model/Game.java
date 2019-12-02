@@ -6,6 +6,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.FetchType;
+import javax.persistence.CascadeType;
 import javax.validation.constraints.NotBlank;
 
 import lombok.Getter;
@@ -26,14 +28,14 @@ public class Game {
   @GeneratedValue(strategy = GenerationType.AUTO)
   private Integer Id;
 
-  @ManyToOne
-  @JoinColumn(name = "id")
+  @ManyToOne(fetch=FetchType.LAZY, cascade = CascadeType.ALL)
+  @JoinColumn(name="winner_id")
   @NotBlank
-  private User Winner;
+  private User winner;
 
-  @ManyToOne
-  @JoinColumn(name = "id")
+  @ManyToOne(fetch=FetchType.LAZY, cascade = CascadeType.ALL)
+  @JoinColumn(name="looser_id")
   @NotBlank
-  private User Looser;
+  private User looser;
 
 }
