@@ -13,20 +13,21 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * StatsController
+ * TopPlayerController
  */
 @RestController()
 @CrossOrigin
 @RequestMapping("/api")
 public class Top10PlayersController {
-  @Autowired
-  private UserRepository userRepository;
+    @Autowired
+    private UserRepository userRepository;
 
-  @PostMapping("/top")
-  public ResponseEntity<?> getTop10Players() {
-    Top10PlayerResponse response = new Top10PlayerResponse(new ArrayList<>(userRepository.findTopPlayers()),
-        new ArrayList<>(userRepository.findTopResults()));
-    return ResponseEntity.ok().body(new ApiResponse<>(true, "Top10", response));    
-  }
+    @PostMapping("/top")
+    public ResponseEntity<?> getTop10Players() {
+        Top10PlayerResponse response = new Top10PlayerResponse(new ArrayList<>(userRepository.findTopPlayers()),
+                new ArrayList<>(userRepository.findTopResults()));
+
+        return ResponseEntity.ok().body(response);
+    }
 
 }

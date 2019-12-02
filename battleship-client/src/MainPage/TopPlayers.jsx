@@ -1,12 +1,18 @@
 import React from 'react';
 import './main_page.css'
 import { userService } from '../_services';
+import { connect } from 'react-redux';
+
 
 
 class PlayersList extends React.Component {
+    constructor(props) {
+        super(props);
+    }
     render() {
         const zip = (arr1, arr2) => arr1.map((k, i) => [k, arr2[i]]);
         const user_winrate = zip(this.props.users, this.props.winrate);
+        console.log(user_winrate);
         const rows = user_winrate.map(user =>
             <tr>
                 <td>{user[0]}</td>
@@ -30,35 +36,28 @@ class PlayersList extends React.Component {
 class TopPlayers extends React.Component {
     constructor(props) {
         super(props);
-        // const response = this.props.get_top_players();
-        // this.state = { users: response[0], winrate: response[1] }
-
-        // this.handleSubmit = this.handleSubmit.bind(this);
-    }
-
-    handleSubmit(e) {
-        e.preventDefault();
-        const response = this.props.get_top_players();
-        this.setState({ users: response[0], winrate: response[1] });
-
+        const { users, winrate } = this.props.get_top_players();
+        this.state = { users: users, winrate: winrate }
     }
 
     render() {
         return (
             <div>
-                <form name="form" onSubmit={this.handleSubmit}>
-                    <PlayersList users={this.state.users} winrate={this.state.winrate} />
-                </form>
+                <PlayersList users={this.state.users} winrate={this.state.winrate} />
             </div>
 
         );
     }
 }
 
-// const actionCreators = {
-//     get_top_players: userService.get_top_players,
-// };
+function mapState(state) {
+    return {};
+}
 
-// const connectedTopPlayers = connect(mapState, actionCreators)(TopPlayers);
-export { TopPlayers };
+const actionCreators = {
+    get_top_players: userService.get_top_players,
+};
+
+const connectedTopPlayers = connect(mapState, actionCreators)(TopPlayers);
+export { connectedTopPlayers as TopPlayers };
 

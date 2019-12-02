@@ -54,6 +54,6 @@ function get_top_players() {
         .then(handleResponse)
         .then(response => {
             console.log(response);
-            return (response.top_players_usernames, response.top_results);
+            return response.top_players_usernames, response.top_results;
         })
 }
