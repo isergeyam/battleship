@@ -22,8 +22,6 @@ export const gameReducer = (state = {
   attacks: [],
   enemyAttacks: []
 }, action) => {
-  console.log("I AM SETTING IN GAME REDUCER!!!!!!!!!!!!!!!!!!!!!!", action);
-  console.log("IS ACTION SET PLAYING: ", action.type == SET_IS_PLAYING);
   switch (action.type) {
     case END_GAME:
       return {
@@ -48,7 +46,6 @@ export const gameReducer = (state = {
         ]
       };
     case SET_IS_PLAYING:
-      console.log("I AM SETTING IS PLAYING!!!!!!!!!!!!!!!!!!!!!!");
       return {
         ...state,
         isPlaying: action.payload
@@ -97,13 +94,11 @@ function UpdateAttacks(attacks, turn_x, turn_y, hit, sunk) {
   }
 
   attacks.push([turn_x, turn_y, hit]);
-  console.log('Attacks after push: ', attacks);
   if (!sunk) {
     return;
   }
-  console.log("Someone is dead!!!");
 
-  for (let turn = turn_y-1; ; --turn) {
+  for (let turn = turn_y - 1; ; --turn) {
     const index = attacks.findIndex(obj => obj[0] === turn_x && obj[1] === turn && obj[2]);
     console.log(index, turn_x, turn);
     if (index === -1) {
@@ -112,7 +107,7 @@ function UpdateAttacks(attacks, turn_x, turn_y, hit, sunk) {
     attacks[index][2] = "sunk";
   }
 
-  for (let turn = turn_y+1; ; ++turn) {
+  for (let turn = turn_y + 1; ; ++turn) {
     const index = attacks.findIndex(obj => obj[0] === turn_x && obj[1] === turn && obj[2]);
     console.log(index);
     if (index === -1) {
@@ -121,7 +116,7 @@ function UpdateAttacks(attacks, turn_x, turn_y, hit, sunk) {
     attacks[index][2] = "sunk";
   }
 
-  for (let turn = turn_x+1; ; ++turn) {
+  for (let turn = turn_x + 1; ; ++turn) {
     const index = attacks.findIndex(obj => obj[0] === turn && obj[1] === turn_y && obj[2]);
     console.log(index);
     if (index === -1) {
@@ -130,7 +125,7 @@ function UpdateAttacks(attacks, turn_x, turn_y, hit, sunk) {
     attacks[index][2] = "sunk";
   }
 
-  for (let turn = turn_x-1; ; --turn) {
+  for (let turn = turn_x - 1; ; --turn) {
     const index = attacks.findIndex(obj => obj[0] === turn && obj[1] === turn_y && obj[2]);
     console.log(index);
     if (index === -1) {
