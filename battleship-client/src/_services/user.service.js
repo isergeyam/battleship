@@ -1,6 +1,7 @@
 import config from 'config';
 import { authHeader } from '../_helpers';
 import axios from '../_helpers/axios';
+import { userConstants } from '../_constants';
 
 export const userService = {
     login,
@@ -49,11 +50,23 @@ function handleResponse(response) {
     return data.data;
 }
 
-function get_top_players() {
+function get_top_players(dispatch) {
+    console.log("AXIOS GET IT");
     return axios.post("/top")
-        .then(handleResponse)
-        .then(response => {
-            console.log(response);
-            return response.top_players_usernames, response.top_results;
-        })
+        .then((response) => {
+            console.log("AXIOS I AM IN");
+            let data = response.data;
+            console.log("AXIOS RECEIVED", data.top_players_usernames, data.top_results);
+            let users = data.top_players_usernames;
+            let winrate = data.top_results;
+            dispatch(received(users, winrate));
+        },
+            (error) => {
+                console.log("ERROR!!!!!!");
+                console.log(error);
+            }
+        )
+    function received(users, winrate) {
+        return { type: userConstants.TOP10_RECEIVED, payload: { users: users, winrate: winrate } };
+    };
 }

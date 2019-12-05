@@ -2,11 +2,13 @@ import { userConstants } from '../_constants';
 import { userService } from '../_services';
 import { alertActions } from './';
 import { history } from '../_helpers';
+import { users } from '../_reducers/users.reducer';
 
 export const userActions = {
     login,
     logout,
     register,
+    getTopPlayers
 };
 
 function login(username, password) {
@@ -57,4 +59,17 @@ function register(user) {
     function request(user) { return { type: userConstants.REGISTER_REQUEST, user } }
     function success(user) { return { type: userConstants.REGISTER_SUCCESS, user } }
     function failure(error) { return { type: userConstants.REGISTER_FAILURE, error } }
+} 
+
+function getTopPlayers() {
+    return dispatch => {
+        dispatch(request());
+        console.log("I am in getTopPlayers");
+        userService.get_top_players(dispatch);
+    };
+    function request() {
+        return { type: userConstants.TOP10_REQUEST };
+    };
+ 
 }
+

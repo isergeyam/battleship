@@ -28,7 +28,6 @@ class Body extends React.Component {
                     </div>
                     <div className="main-right_column">
                         <TopPlayers />
-                        1
                     </div>
                 </div>
             </div>
