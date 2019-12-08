@@ -1,6 +1,6 @@
 import { userConstants } from '../_constants';
 
-export function users(state = { requesting_top_10: false, received_top_10: false }, action) {
+export function users(state = { requesting_top_10: false, received_top_10: false}, action) {
     switch (action.type) {
         case userConstants.TOP10_REQUEST:
             return { ...state, requesting_top_10: true };

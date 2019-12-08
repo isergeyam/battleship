@@ -10,11 +10,15 @@ import javax.persistence.FetchType;
 import javax.persistence.CascadeType;
 import javax.validation.constraints.NotBlank;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import com.isergeyam.battleship.model.User;
+import com.isergeyam.battleship.repository.UserRepository;
+
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * Game
@@ -23,6 +27,7 @@ import com.isergeyam.battleship.model.User;
 @Setter
 @Getter
 @NoArgsConstructor
+@AllArgsConstructor
 public class Game {
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
@@ -34,8 +39,7 @@ public class Game {
   private User winner;
 
   @ManyToOne(fetch=FetchType.LAZY, cascade = CascadeType.ALL)
-  @JoinColumn(name="looser_id")
+  @JoinColumn(name="loser_id")
   @NotBlank
-  private User looser;
-
+  private User loser;
 }

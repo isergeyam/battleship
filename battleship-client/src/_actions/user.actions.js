@@ -8,7 +8,8 @@ export const userActions = {
     login,
     logout,
     register,
-    getTopPlayers
+    getTopPlayers,
+    getPlayerStats
 };
 
 function login(username, password) {
@@ -71,5 +72,16 @@ function getTopPlayers() {
         return { type: userConstants.TOP10_REQUEST };
     };
  
+}
+
+function getPlayerStats(token) {
+    return dispatch => {
+        dispatch(request());
+        userService.get_player_stats(dispatch, token);
+    };
+    function request() {
+        return { type: userConstants.STATS_REQUEST };
+    };
+
 }
 

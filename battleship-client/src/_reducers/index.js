@@ -7,6 +7,7 @@ import { alert } from './alert.reducer';
 import { boardReducer } from './boardReducer';
 import { gameReducer } from './gameReducer';
 import { shipsReducer } from './shipsReducer';
+import { userStatsReducer } from './user.reducer';
 import { routerReducer } from 'react-router-redux';
 
 
@@ -18,7 +19,8 @@ const rootReducer = combineReducers({
   board: boardReducer,
   game: gameReducer,
   ships: shipsReducer,
-  route: routerReducer
+  route: routerReducer,
+  user_stats: userStatsReducer,
 });
 
 export default rootReducer;
