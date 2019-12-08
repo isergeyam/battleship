@@ -47,11 +47,11 @@ public class User {
 
   private Long gamesWon;
 
-  @OneToMany(fetch = FetchType.LAZY, mappedBy = "winner")
-  private Set<Game> won_games;
+//   @OneToMany(fetch = FetchType.LAZY, mappedBy = "winner")
+//   private Set<Game> won_games;
 
-  @OneToMany(fetch = FetchType.LAZY, mappedBy = "looser")
-  private Set<Game> lost_games;
+//   @OneToMany(fetch = FetchType.LAZY, mappedBy = "loser")
+//   private Set<Game> lost_games;
 
   public User(String username, String email, String password) {
     this.username = username;

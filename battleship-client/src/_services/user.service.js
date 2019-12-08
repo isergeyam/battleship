@@ -9,7 +9,8 @@ export const userService = {
     logout,
     register,
     handleResponse,
-    get_top_players
+    get_top_players,
+    get_player_stats
 };
 
 function login(userNameOrEmail, password) {
@@ -53,22 +54,37 @@ function handleResponse(response) {
 }
 
 function get_top_players(dispatch) {
-    console.log("AXIOS GET IT");
     return axios.post("/top")
         .then((response) => {
-            console.log("AXIOS I AM IN");
             let data = response.data;
-            console.log("AXIOS RECEIVED", data.top_players_usernames, data.top_results);
             let users = data.top_players_usernames;
             let winrate = data.top_results;
             dispatch(received(users, winrate));
         },
             (error) => {
-                console.log("ERROR!!!!!!");
                 console.log(error);
             }
         )
     function received(users, winrate) {
         return { type: userConstants.TOP10_RECEIVED, payload: { users: users, winrate: winrate } };
+    };
+}
+
+function get_player_stats(dispatch, token) {
+    return axios.post("/stats", { token: token, another_field: ""})
+        .then(handleResponse)
+        .catch(handleResponse)
+        .then((data) => {
+            let winners = data.winners;
+            let loser = data.losers;
+            let winrate = data.winrate;
+            dispatch(received(winners, loser, winrate));
+        },
+            (error) => {
+                console.log(error);
+            }
+        )
+    function received(winners, losers, winrate) {
+        return { type: userConstants.STATS_RECEIVED, payload: { winners: winners, losers: losers, winrate: winrate } };
     };
 }

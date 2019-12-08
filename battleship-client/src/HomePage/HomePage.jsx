@@ -1,14 +1,15 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { connect } from 'react-redux';
 import './style.css';
+import { connect } from 'react-redux';
 
-import { userActions } from '../_actions';
+import { Stats } from './Stats';
+
 
 class Header extends React.Component {
     render() {
         return (
-            <div class="topnav">
+            <div className="topnav">
                 <Link to={"/"}>Home</Link>
                 <Link to={"/login"}>Logout</Link>
             </div >
@@ -26,7 +27,7 @@ class HomePage extends React.Component {
     }
 
     render() {
-        const { user, users } = this.props;
+        const { user } = this.props;
         return (
             <div>
                 <Header />
@@ -46,7 +47,7 @@ class HomePage extends React.Component {
                             </p>
                         </div>
                         <div className='home-right_column'>
-                            right_column
+                            <Stats/>
                 </div>
                     </div>
                 </div>
