@@ -1,6 +1,7 @@
 import config from 'config';
 import { authHeader } from '../_helpers';
 import axios from '../_helpers/axios';
+import { history } from '../_helpers';
 import { userConstants } from '../_constants';
 
 export const userService = {
@@ -41,7 +42,7 @@ function handleResponse(response) {
         if (response.status === 401) {
             // auto logout if 401 response returned from api
             logout();
-            location.reload(true);
+            history.push('/login')
         }
 
         const error = (data && data.message) || response.statusText;

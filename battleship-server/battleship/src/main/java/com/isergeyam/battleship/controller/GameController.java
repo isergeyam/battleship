@@ -53,7 +53,6 @@ public class GameController {
     Board board = new Board(startGameRequest.getShips());
     User user = currentlyLoggedUser.get(token);
     GamePlayer player = new UserGamePlayer(user, token, output, board);
-    gamePlayers.put(token, player);
     try {
       gameService.addPlayer(player);
     } catch (SamePlayerException ex) {
@@ -61,6 +60,7 @@ public class GameController {
           HttpStatus.BAD_REQUEST));
       return output;
     }
+    gamePlayers.put(token, player);
     return output;
   }
 

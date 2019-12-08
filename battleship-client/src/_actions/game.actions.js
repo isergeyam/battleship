@@ -21,6 +21,7 @@ import {
 } from '../_helpers/action-types';
 import axios from '../_helpers/axios';
 import { alertActions } from './alert.actions';
+import { LOADING_IMG } from '../_constants';
 
 export function attackShip(enemy, enemyShip) {
   return {
@@ -129,10 +130,15 @@ export function submitTurnOnServer(turn_x, turn_y, token, waitTurn) {
     turn_data['token'] = token
     axios.post('/game/turn', turn_data)
       .then(userService.handleResponse)
+      .catch(userService.handleResponse)
       .then(response => {
         console.log('Turn response: ', response);
-        dispatch(renderTurn(response['hit'], response['sunk'], turn_x, turn_y));
         dispatch(setIsPlaying(false));
+        if (response == "win") {
+          dispatch(updateMessage('YOU WIN!!!'));
+          return;
+        }
+        dispatch(renderTurn(response['hit'], response['sunk'], turn_x, turn_y));
         waitTurn(token);
       })
   }
@@ -145,6 +151,10 @@ export function waitTurn(token) {
       .then(userService.handleResponse)
       .then(response => {
         console.log('Wait for turn response: ', response);
+        if (response == "lose") {
+          dispatch(updateMessage("YOU LOSE!!!"));
+          return;
+        }
         const { hit, sunk, coords } = response;
         dispatch(renderEnemyTurn(hit, sunk, coords.first, coords.second));
         dispatch(setIsPlaying(true));

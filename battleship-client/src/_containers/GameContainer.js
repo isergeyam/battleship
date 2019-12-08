@@ -30,7 +30,7 @@ class GameContainer extends React.Component {
     this.displayHitsAndMisses(enemyAttacks, my_table);
     console.log("I MOUNTED, isPlaying: ", isPlaying);
     if (!isPlaying) {
-        console.log("GOING TO WAIT");
+      console.log("GOING TO WAIT");
       waitTurn(playerToken);
     }
   }
@@ -109,12 +109,13 @@ class GameContainer extends React.Component {
       board,
       message,
       playerName,
+      isPlaying
     } = this.props;
 
     return (
       <div className='main'>
         <h1>{playerName}</h1>
-        {<Message message={message} />}
+        {<Message message={message} isPlaying={isPlaying} />}
         <Board
           board={board}
           clickHandler={this.clickHandler}
