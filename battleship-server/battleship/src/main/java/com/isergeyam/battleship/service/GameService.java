@@ -24,7 +24,7 @@ public class GameService {
   @Autowired
   private PendingElement<GamePlayer> userPendingGame;
 
-  public void addPlayer(GamePlayer newPlayer) {
+  public void addPlayer(GamePlayer newPlayer) throws SamePlayerException {
     Optional<GamePlayer> opt_player = userPendingGame.GetOrSet(newPlayer);
     if (opt_player.isPresent()) {
       GamePlayer player = opt_player.get();

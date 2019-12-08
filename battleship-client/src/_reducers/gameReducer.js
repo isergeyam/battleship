@@ -7,7 +7,8 @@ import {
   TOGGLE_TURN,
   UPDATE_MESSAGE,
   PROCESS_TURN,
-  PROCESS_ENEMY_TURN
+  PROCESS_ENEMY_TURN,
+  SENDING_REQUEST
 } from '../_helpers';
 
 export const gameReducer = (state = {
@@ -20,7 +21,8 @@ export const gameReducer = (state = {
   playerTwo: [],
   playerTurn: 'playerOne',
   attacks: [],
-  enemyAttacks: []
+  enemyAttacks: [],
+  sendingRequest: false
 }, action) => {
   switch (action.type) {
     case END_GAME:
@@ -82,6 +84,10 @@ export const gameReducer = (state = {
       } = action.payload;
       UpdateAttacks(newState.enemyAttacks, turn_x, turn_y, hit, sunk);
       return newState;
+    }
+    case SENDING_REQUEST: {
+      let { value } = action.payload;
+      return { ...state, sendingRequest: value }
     }
     default:
       return state;

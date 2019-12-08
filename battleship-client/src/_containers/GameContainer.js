@@ -13,7 +13,6 @@ import {
 } from '../_actions';
 import { togglePlayer } from '../_helpers/toggle-player';
 import Board from '../_components/Board';
-import Button from '../_components/';
 import Message from '../_components/Message';
 
 class GameContainer extends React.Component {
@@ -39,35 +38,18 @@ class GameContainer extends React.Component {
   componentDidUpdate() {
     const {
       attacks,
-      endGame,
-      enemyShips,
-      enemyShipsHealth,
-      playerName,
       enemyAttacks,
       playerTurn
     } = this.props;
 
-    // console.log('enemyShips coordinates: ', Object.keys(enemyShips));
-    // console.log('enemyShips health: ', enemyShipsHealth);
     const enemy_table = document.getElementsByTagName('table')[0];
     const my_table = document.getElementsByTagName('table')[1];
     console.log('Player turn: ', playerTurn);
     this.displayHitsAndMisses(attacks, enemy_table);
     this.displayHitsAndMisses(enemyAttacks, my_table);
-
-    // const hitsLeft =
-    //   Object.values(enemyShipsHealth).reduce((sum, health) => {
-    //     sum += health;
-    //     return sum;
-    //   }, 0);
-
-    // if (hitsLeft === 0) {
-    //   endGame(playerName);
-    // };
   };
 
   displayHitsAndMisses = (attacks, table) => {
-    // const table = document.getElementsByTagName('table')[0];
     console.log("Attacks: ", attacks);
 
     attacks.forEach(attack => {
@@ -99,15 +81,7 @@ class GameContainer extends React.Component {
 
   clickHandler = (e) => {
     const {
-      attackShip,
-      enemyShips,
-      enemyShipsHealth,
       isPlaying,
-      playerAttacks,
-      playerTurn,
-      playerOneAttack,
-      playerTwoAttack,
-      updateMessage,
       playerToken,
       attacks,
       submitTurnOnServer,
@@ -124,21 +98,6 @@ class GameContainer extends React.Component {
     }
     submitTurnOnServer(row, col, playerToken, waitTurn);
     return;
-    const attackCoordinates = `${row},${col}`;
-    const playerAttackAction = playerTurn === 'playerOne' ? playerOneAttack : playerTwoAttack;
-    const enemy = togglePlayer(playerTurn);
-
-    playerAttackAction(attackCoordinates);
-
-    if (Object.keys(enemyShips).includes(attackCoordinates) && !playerAttacks.includes(attackCoordinates)) {
-      const enemyShip = enemyShips[attackCoordinates];
-      attackShip(enemy, enemyShip);
-      const message = enemyShipsHealth[enemyShip] === 0 ? `You sunk their ${enemyShip}!` : `You hit their ${enemyShip}!`;
-
-      updateMessage(message);
-    } else {
-      updateMessage('You missed.');
-    };
   };
 
   mouseOverHandler = (e) => {

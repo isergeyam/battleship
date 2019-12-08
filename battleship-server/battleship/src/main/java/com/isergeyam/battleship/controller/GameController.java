@@ -12,6 +12,7 @@ import com.isergeyam.battleship.payload.TurnRequest;
 import com.isergeyam.battleship.service.Board;
 import com.isergeyam.battleship.service.GamePlayer;
 import com.isergeyam.battleship.service.GameService;
+import com.isergeyam.battleship.service.SamePlayerException;
 import com.isergeyam.battleship.service.UserGamePlayer;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,7 +54,13 @@ public class GameController {
     User user = currentlyLoggedUser.get(token);
     GamePlayer player = new UserGamePlayer(user, token, output, board);
     gamePlayers.put(token, player);
-    gameService.addPlayer(player);
+    try {
+      gameService.addPlayer(player);
+    } catch (SamePlayerException ex) {
+      output.setResult(new ResponseEntity<>(new ApiResponse<>(false, "You have already submitted request", ""),
+          HttpStatus.BAD_REQUEST));
+      return output;
+    }
     return output;
   }
 

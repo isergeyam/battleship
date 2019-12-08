@@ -16,9 +16,11 @@ import {
   TOGGLE_TURN,
   UPDATE_MESSAGE,
   PROCESS_TURN,
-  PROCESS_ENEMY_TURN
+  PROCESS_ENEMY_TURN,
+  SENDING_REQUEST
 } from '../_helpers/action-types';
 import axios from '../_helpers/axios';
+import { alertActions } from './alert.actions';
 
 export function attackShip(enemy, enemyShip) {
   return {
@@ -93,9 +95,16 @@ export function SubmitOnServer(ships, token) {
     console.log(requestData);
 
     console.log("Sending request!!!");
+    dispatch(setSendingRequest(true));
     axios.post('/game/start', requestData)
       .then(userService.handleResponse)
+      .catch(error => {
+        console.log("SAME PLAYERRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR");
+        dispatch(alertActions.error(error.response.data.message));
+        return Promise.reject();
+      })
       .then(response => {
+        dispatch(setSendingRequest(false));
         console.log("Got response: ", response);
         if (response == "start") {
           dispatch(setIsPlaying(true));
@@ -107,6 +116,10 @@ export function SubmitOnServer(ships, token) {
       })
   };
 };
+
+export function setSendingRequest(value) {
+  return { type: SENDING_REQUEST, payload: { value } };
+}
 
 export function submitTurnOnServer(turn_x, turn_y, token, waitTurn) {
   return (dispatch) => {

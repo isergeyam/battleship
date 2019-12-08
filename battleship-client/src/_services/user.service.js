@@ -15,6 +15,7 @@ function login(userNameOrEmail, password) {
 
     return axios.post("/login", { userNameOrEmail: userNameOrEmail, password: password })
         .then(handleResponse)
+        .catch(error => handleResponse(error.response))
         .then(response => {
             console.log(response);
             // store user details and jwt token in local storage to keep user logged in between page refreshes
@@ -30,7 +31,7 @@ function logout() {
 }
 
 function register(user) {
-    return axios.post("/register", user).then(handleResponse);
+    return axios.post("/register", user).then(handleResponse).catch(error => handleResponse(error.response));
 }
 
 function handleResponse(response) {

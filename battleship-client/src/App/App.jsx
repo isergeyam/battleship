@@ -11,7 +11,6 @@ import { RegisterPage } from '../RegisterPage';
 import { MainPage } from '../MainPage';
 import { GameContainer } from '../_containers/GameContainer'
 import { SetUpContainer } from '../_containers/SetUpContainer'
-import { WelcomeContainer } from '../_containers/WelcomeContainer'
 
 class App extends React.Component {
     constructor(props) {
@@ -35,7 +34,7 @@ class App extends React.Component {
                         <PrivateRoute exact path="/game" component={HomePage} />
                         <Route path="/login" component={LoginPage} />
                         <Route path="/register" component={RegisterPage} />
-                        <PrivateRoute path='/game/start' component={WelcomeContainer} />
+                        <PrivateRoute path='/game/start' component={SetUpContainer} />
                         <PrivateRoute path='/player-one' component={SetUpContainer} />
                         <PrivateRoute path='/player-two' component={SetUpContainer} />
                         <PrivateRoute path='/ready/player' component={GameContainer} />

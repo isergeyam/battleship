@@ -27,6 +27,18 @@ public class UserGamePlayer extends GamePlayer {
   private Optional<HitResult> opt_result;
   DeferredResult<ResponseEntity<?>> output;
 
+  @Override
+  public boolean equals(Object otherPlayer) {
+    if (otherPlayer == this) {
+      return true;
+    }
+    if (!(otherPlayer instanceof UserGamePlayer)) {
+      return false;
+    }
+    UserGamePlayer other = (UserGamePlayer) otherPlayer;
+    return token.equals(other.token);
+  }
+
   public UserGamePlayer(User user, String token, DeferredResult<ResponseEntity<?>> output, Board board) {
     this.user = user;
     this.token = token;
