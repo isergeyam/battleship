@@ -3,10 +3,15 @@ package com.isergeyam.battleship.service;
 import java.util.Optional;
 
 import com.isergeyam.battleship.controller.ApiResponse;
+import com.isergeyam.battleship.controller.GameController;
+import com.isergeyam.battleship.model.Game;
 import com.isergeyam.battleship.model.User;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.data.util.Pair;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.async.DeferredResult;
 
 import lombok.AllArgsConstructor;
@@ -26,6 +31,7 @@ public class UserGamePlayer extends GamePlayer {
   private String token;
   private Optional<HitResult> opt_result;
   DeferredResult<ResponseEntity<?>> output;
+
 
   @Override
   public boolean equals(Object otherPlayer) {
@@ -69,6 +75,8 @@ public class UserGamePlayer extends GamePlayer {
     enemyPlayer.NotifyTurn(result);
     if (enemyPlayer.getBoard().AllSunk()) {
       output.setResult(ResponseEntity.ok(new ApiResponse<>(true, "win", "win")));
+      Game new_game = new Game(this.getUser(), ((UserGamePlayer) this.enemyPlayer).getUser());
+      gameController.SaveGameStats(new_game);
     } else {
       output.setResult(ResponseEntity.ok(new ApiResponse<>(true, "hit result", result)));
     }

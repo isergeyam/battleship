@@ -50,7 +50,6 @@ public class StatsController {
     // ArrayList<Game> last_games = new ArrayList<Game>();
     ArrayList<String> winners = new ArrayList<String>();
     ArrayList<String> losers = new ArrayList<String>();
-    ;
     last_games.forEach((game) -> {
       winners.add(userRepository.findById(game.get(0)).get().getUsername());
       losers.add(userRepository.findById(game.get(1)).get().getUsername());

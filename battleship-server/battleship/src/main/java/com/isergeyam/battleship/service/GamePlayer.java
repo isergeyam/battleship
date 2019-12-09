@@ -1,5 +1,8 @@
 package com.isergeyam.battleship.service;
 
+import com.isergeyam.battleship.controller.GameController;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.util.Pair;
 
 import lombok.Getter;
@@ -23,4 +26,6 @@ public abstract class GamePlayer {
 
   protected Board board;
   protected GamePlayer enemyPlayer;
+
+  protected GameController gameController;
 }
