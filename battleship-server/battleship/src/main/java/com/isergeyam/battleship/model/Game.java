@@ -16,9 +16,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import com.isergeyam.battleship.model.User;
-import com.isergeyam.battleship.repository.UserRepository;
-
-import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * Game

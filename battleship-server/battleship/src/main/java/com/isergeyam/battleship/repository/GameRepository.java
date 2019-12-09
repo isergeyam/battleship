@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.isergeyam.battleship.model.Game;
-import com.isergeyam.battleship.payload.GameResponse;
 
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;

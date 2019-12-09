@@ -2,8 +2,6 @@ package com.isergeyam.battleship.payload;
 
 import java.util.ArrayList;
 
-import com.isergeyam.battleship.model.Game;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

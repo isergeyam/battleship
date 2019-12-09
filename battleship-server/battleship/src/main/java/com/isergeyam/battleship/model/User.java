@@ -1,13 +1,10 @@
 package com.isergeyam.battleship.model;
 
-import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.FetchType;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
@@ -17,7 +14,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import com.isergeyam.battleship.model.Game;
 
 /**
  * User
@@ -43,9 +39,9 @@ public class User {
   @NotBlank
   private String password;
 
-  private Long gamesPlayed;
+  private Long gamesPlayed = Long.valueOf(0);
 
-  private Long gamesWon;
+  private Long gamesWon = Long.valueOf(0);
 
 //   @OneToMany(fetch = FetchType.LAZY, mappedBy = "winner")
 //   private Set<Game> won_games;

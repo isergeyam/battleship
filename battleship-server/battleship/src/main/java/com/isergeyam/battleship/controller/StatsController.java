@@ -6,8 +6,6 @@ import java.util.Hashtable;
 import javax.validation.Valid;
 
 import com.isergeyam.battleship.model.User;
-import com.isergeyam.battleship.model.Game;
-import com.isergeyam.battleship.payload.GameResponse;
 import com.isergeyam.battleship.payload.StatsResponse;
 import com.isergeyam.battleship.payload.TokenRequest;
 import com.isergeyam.battleship.repository.GameRepository;
@@ -33,7 +31,7 @@ public class StatsController {
   private Hashtable<String, User> currentlyLoggedUser;
 
   @Autowired
-  private GameRepository  gameRepository;
+  private GameRepository gameRepository;
 
   @Autowired
   private UserRepository userRepository;
@@ -47,14 +45,18 @@ public class StatsController {
     }
     User user = currentlyLoggedUser.get(token);
 
-    ArrayList<ArrayList<Integer>> last_games = new ArrayList<ArrayList<Integer>>(gameRepository.findLastGames(user.getId()));
+    ArrayList<ArrayList<Integer>> last_games = new ArrayList<ArrayList<Integer>>(
+        gameRepository.findLastGames(user.getId()));
     // ArrayList<Game> last_games = new ArrayList<Game>();
     ArrayList<String> winners = new ArrayList<String>();
-    ArrayList<String> losers = new ArrayList<String>();;
-    last_games.forEach((game) -> {winners.add(userRepository.findById(game.get(0)).get().getUsername());
-        losers.add(userRepository.findById(game.get(1)).get().getUsername());});
-    return ResponseEntity.ok().body(new ApiResponse<>(true, "Stats collected", new StatsResponse(user.getGamesPlayed() /
-        user.getGamesWon() * 100, winners, losers)));
+    ArrayList<String> losers = new ArrayList<String>();
+    ;
+    last_games.forEach((game) -> {
+      winners.add(userRepository.findById(game.get(0)).get().getUsername());
+      losers.add(userRepository.findById(game.get(1)).get().getUsername());
+    });
+    return ResponseEntity.ok().body(new ApiResponse<>(true, "Stats collected", new StatsResponse(
+       user.getGamesPlayed() == null || user.getGamesPlayed() == 0 ? 0 : user.getGamesPlayed() / user.getGamesWon() * 100, winners, losers)));
   }
 
 }
