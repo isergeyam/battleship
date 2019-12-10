@@ -23,8 +23,8 @@ class Body extends React.Component {
             <div className="main-main">
                 <div className="main-row">
                     <div className="main-left_column">
-                        <h2>Column 1</h2>
-                        <p>Some text..</p>
+                        <h2>Welcome!</h2>
+                        <h3>This is battleship game.s</h3>
                     </div>
                     <div className="main-right_column">
                         <TopPlayers />

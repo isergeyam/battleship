@@ -94,13 +94,13 @@ ul {
 }
 
 #usernames td, #usernames th {
-  border: 1px solid rgb(125, 123, 134);
+  border: 1px solid rgb(123, 121, 136);
   padding: 8px;
 }
 
-#usernames tr:nth-child(even){background-color: #d3d3d3;}
+#usernames tr:nth-child(even){background-color: #c4c4c4;}
 
-#usernames tr:hover {background-color: #ddd;}
+#usernames tr:hover {background-color: rgb(158, 158, 158);}
 
 #usernames th {
   padding-top: 12px;
