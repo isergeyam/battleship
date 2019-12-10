@@ -55,7 +55,7 @@ public class StatsController {
       losers.add(userRepository.findById(game.get(1)).get().getUsername());
     });
     return ResponseEntity.ok().body(new ApiResponse<>(true, "Stats collected", new StatsResponse(
-       user.getGamesPlayed() == null || user.getGamesPlayed() == 0 ? 0 : user.getGamesPlayed() / user.getGamesWon() * 100, winners, losers)));
+       user.getGamesPlayed() == null || user.getGamesWon() == 0 ? 0 : user.getGamesPlayed() / user.getGamesWon() * 100, winners, losers)));
   }
 
 }

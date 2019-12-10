@@ -5,12 +5,10 @@ import java.util.concurrent.ForkJoinPool;
 
 import javax.validation.Valid;
 
-import com.isergeyam.battleship.model.Game;
 import com.isergeyam.battleship.model.User;
 import com.isergeyam.battleship.payload.StartGameRequest;
 import com.isergeyam.battleship.payload.TokenRequest;
 import com.isergeyam.battleship.payload.TurnRequest;
-import com.isergeyam.battleship.repository.GameRepository;
 import com.isergeyam.battleship.service.Board;
 import com.isergeyam.battleship.service.GamePlayer;
 import com.isergeyam.battleship.service.GameService;
@@ -42,9 +40,6 @@ public class GameController {
 
   @Autowired
   private GameService gameService;
-
-  @Autowired
-  private GameRepository gameRepository;
 
   @PostMapping("/start")
   public DeferredResult<ResponseEntity<?>> startGame(@Valid @RequestBody StartGameRequest startGameRequest) {
@@ -109,9 +104,5 @@ public class GameController {
     player.setOutput(output);
     player.TakeTurn(turnRequest.getTurn());
     return output;
-  }
-
-  public void SaveGameStats(Game game) {
-    gameRepository.save(game);
   }
 }

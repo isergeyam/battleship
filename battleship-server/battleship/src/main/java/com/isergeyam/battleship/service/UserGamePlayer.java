@@ -3,15 +3,13 @@ package com.isergeyam.battleship.service;
 import java.util.Optional;
 
 import com.isergeyam.battleship.controller.ApiResponse;
-import com.isergeyam.battleship.controller.GameController;
 import com.isergeyam.battleship.model.Game;
 import com.isergeyam.battleship.model.User;
+import com.isergeyam.battleship.repository.GameRepository;
+import com.isergeyam.battleship.repository.UserRepository;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
 import org.springframework.data.util.Pair;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.async.DeferredResult;
 
 import lombok.AllArgsConstructor;
@@ -31,7 +29,6 @@ public class UserGamePlayer extends GamePlayer {
   private String token;
   private Optional<HitResult> opt_result;
   DeferredResult<ResponseEntity<?>> output;
-
 
   @Override
   public boolean equals(Object otherPlayer) {
@@ -71,12 +68,16 @@ public class UserGamePlayer extends GamePlayer {
 
   @Override
   public void TakeTurn(Pair<Integer, Integer> turn) {
+    UserRepository userRepository = SpringContext.getBean(UserRepository.class);
     HitResult result = enemyPlayer.getBoard().Hit(turn);
     enemyPlayer.NotifyTurn(result);
     if (enemyPlayer.getBoard().AllSunk()) {
       output.setResult(ResponseEntity.ok(new ApiResponse<>(true, "win", "win")));
       Game new_game = new Game(this.getUser(), ((UserGamePlayer) this.enemyPlayer).getUser());
-      gameController.SaveGameStats(new_game);
+      SpringContext.getBean(GameRepository.class).save(new_game);
+      user.setGamesPlayed(user.getGamesPlayed() + 1);
+      user.setGamesWon(user.getGamesWon() + 1);
+      userRepository.save(user);
     } else {
       output.setResult(ResponseEntity.ok(new ApiResponse<>(true, "hit result", result)));
     }
@@ -84,6 +85,7 @@ public class UserGamePlayer extends GamePlayer {
 
   @Override
   public synchronized void WaitTurn() {
+    UserRepository userRepository = SpringContext.getBean(UserRepository.class);
     while (!this.opt_result.isPresent()) {
       try {
         wait();
@@ -94,6 +96,8 @@ public class UserGamePlayer extends GamePlayer {
     opt_result = Optional.empty();
     if (board.AllSunk()) {
       output.setResult(ResponseEntity.ok(new ApiResponse<>(true, "lose", "lose")));
+      user.setGamesPlayed(user.getGamesPlayed() + 1);
+      userRepository.save(user);
     } else {
       output.setResult(ResponseEntity.ok(new ApiResponse<>(true, "hit result", result)));
     }
