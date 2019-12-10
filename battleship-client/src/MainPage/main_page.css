@@ -8,25 +8,22 @@ ul {
 }
 
 
-
 .main-main {
   flex: 0%;
-  background-color: rgb(104, 52, 52);
-  border-block-color: black;
-  border-style: solid;
-  padding: 20px;
+  background: linear-gradient(#2d2e83, #57589c);
+  padding: 2%;
 }
 
 .main-left_column {
   width: 70%;
   padding: 10px;
-  background-color: rgb(146, 146, 146);
+  background-color: #edeff0;
 }
 
 .main-right_column {
   padding: 10px;
   width: 30%;
-  background-color: rgb(83, 83, 83);
+  background-color: #edeff0;
 }
 
 
@@ -36,7 +33,11 @@ ul {
 
 
 .link {
-  color: black;
+  color: white;
+}
+
+.link:hover {
+    text-decoration: underline;
 }
 
 .fakeimg {
@@ -46,7 +47,7 @@ ul {
 }
 
 .topnav {
-  background-color: rgb(196, 98, 98);
+  background-color: #29235c;
   overflow: hidden;
   position: sticky;
   position: -webkit-sticky;
@@ -55,17 +56,16 @@ ul {
 }
 
 .topnav a {
-  color: rgb(150, 60, 60);
+  color: white;
   float: left;
   display: block;
-  color: rgb(255, 255, 255);
   text-align: center;
   padding: 14px 20px;
   text-decoration: none;
 }
 
 .topnav a:hover {
-  background-color: rgb(32, 32, 32);
+  background-color: #ef9e29;
   color: white;
 }
 
@@ -74,7 +74,7 @@ ul {
 }
 
 .topnav a.active {
-  background-color: rgb(32, 32, 32);
+  background-color: #ef9e29;
   color: white;
 }
 
@@ -84,9 +84,31 @@ ul {
     width: 100%;
     left: 0;
     top: 0;
-    background-color: rgb(46, 46, 46);
+    background-color: #edeff0;
 }
 
+#usernames {
+  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+#usernames td, #usernames th {
+  border: 1px solid rgb(125, 123, 134);
+  padding: 8px;
+}
+
+#usernames tr:nth-child(even){background-color: #d3d3d3;}
+
+#usernames tr:hover {background-color: #ddd;}
+
+#usernames th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #29235c;
+  color: #d3d3d3;
+}
 
 @media screen and (max-width: 400px) {
   .navbar a {

@@ -79,13 +79,20 @@ tr {
 }
 
 .main {
-  width: 70%;
+    flex: 0%;
+  background: linear-gradient(#2d2e83, #57589c);
+  padding: 2%;
 }
 
 .welcome {
   display: flex;
   flex-direction: column;
   width: 45%;
+}
+
+.game-main {
+  padding: 10px;
+  background-color: #edeff0;
 }
 
 .welcome button {

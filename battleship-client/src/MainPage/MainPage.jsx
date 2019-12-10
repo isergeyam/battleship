@@ -10,7 +10,7 @@ class Header extends React.Component {
     render() {
         return (
             <div className="topnav">
-                <Link to={"/"}>Home</Link>
+                <Link to={"/"} class='active'>Home</Link>
                 <Link to={"/game"}>Game</Link>
             </div >
         );
@@ -38,7 +38,8 @@ class Body extends React.Component {
 class MainPage extends React.Component {
     render() {
         return (
-            <div>
+            <div className="col-md-7 col-md-offset-2">
+
                 <Header />
                 <Body />
             </div>
@@ -46,4 +47,4 @@ class MainPage extends React.Component {
     }
 }
 
-export { MainPage }
+export { MainPage, Header }

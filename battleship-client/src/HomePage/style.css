@@ -1,6 +1,6 @@
 .home-main {
   flex: 0%;
-  background-color: rgb(219, 132, 132);
+  background: linear-gradient(#2d2e83, #57589c);
   /* border-style: solid; */
   margin-left: 0%;
   padding: 2%;
@@ -9,16 +9,29 @@
 .home-left_column {
   width: 70%;
   padding: 10px;
-  background-color: rgb(146, 146, 146);
+  background-color: #edeff0;
 }
 
 .home-right_column {
   padding: 10px;
   width: 30%;
-  background-color: rgb(83, 83, 83);
+  background-color: #edeff0;
 }
 
 
 .home-row {  
   display: flex;
 }
+
+.winner{
+    background-color: rgb(138, 255, 138);
+}
+
+.loser{
+    background-color: rgb(255, 138, 138);
+}
+
+.standart{
+    background-color: #edeff0;
+}
+
