@@ -30,7 +30,6 @@ public class GameService {
       GamePlayer player = opt_player.get();
       player.setEnemyPlayer(newPlayer);
       newPlayer.setEnemyPlayer(player);
-      // GameSession session = new GameSession(player, newPlayer, new Board(), new Board());
       player.NotifyStart();
       newPlayer.NotifyWait();
     }

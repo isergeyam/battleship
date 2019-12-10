@@ -30,13 +30,16 @@ public class Game {
   @GeneratedValue(strategy = GenerationType.AUTO)
   private Integer Id;
 
-  @ManyToOne(fetch=FetchType.LAZY, cascade = CascadeType.ALL)
-  @JoinColumn(name="winner_id")
-  @NotBlank
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "winner_id")
   private User winner;
 
-  @ManyToOne(fetch=FetchType.LAZY, cascade = CascadeType.ALL)
-  @JoinColumn(name="loser_id")
-  @NotBlank
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "loser_id")
   private User loser;
+
+  public Game(User winner, User loser) {
+    this.winner = winner;
+    this.loser = loser;
+  }
 }
