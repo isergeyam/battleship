@@ -1,0 +1,12 @@
+setup:
+  addons:
+    plan: cleardb
+    as: DATABASE
+  build:
+    docker:
+      web: battleship-client/Dockerfile
+      backend: battleship-server/battleship/Dockerfile
+  release:
+    image: web
+  run:
+    image: web
