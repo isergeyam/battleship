@@ -11,12 +11,12 @@ class GamesList extends React.Component {
         const games = zip(this.props.winners, this.props.losers);
         const rows = games.map(game =>
             <tr>
-                <td>{game[0]}</td>
-                <td>{game[1]}</td>
+                {check(this.props.username, game[0], true)}
+                {check(this.props.username, game[1], false)}
             </tr>
         );
         return (
-            <table>
+            <table id='usernames'>
                 <tbody>
                     <tr>
                         <th>Winner</th>
@@ -27,6 +27,28 @@ class GamesList extends React.Component {
             </table>
         )
     }
+}
+
+function check(username, current_username, result) {
+    if (username === current_username && result) {
+        return (
+            <td className='winner'>
+                {current_username}
+            </td>
+        );
+    }
+    if (username === current_username && !result) {
+        return (
+            <td className='loser'>
+                {current_username}
+            </td>
+        );
+    } 
+    return (
+        <td className='standart'>
+            {current_username}
+        </td>
+    );
 }
 
 class Stats extends React.Component {
@@ -46,11 +68,16 @@ class Stats extends React.Component {
                 }
                 {this.props.received_stats &&
                     <h2>
-                        Winrate: {this.props.winrate}
+                        Winrate: {this.props.winrate}%
                     </h2>
                 }
                 {this.props.received_stats &&
-                    <GamesList winners={this.props.winners} losers={this.props.losers} />
+                    <h2>
+                        Your last games
+                    </h2>
+                }
+                {this.props.received_stats &&
+                    <GamesList winners={this.props.winners} losers={this.props.losers} username={this.props.username}/>
                 }
             </div>
 
@@ -68,7 +95,8 @@ function mapState(state) {
         winners: state.user_stats.winners,
         losers: state.user_stats.losers,
         winrate: state.user_stats.winrate,
-        token: user.token
+        token: user.token,
+        username: user.username
     };
 }
 
