@@ -30,9 +30,9 @@ services:
       context: battleship-client # Use an image built from the specified dockerfile in the `polling-app-client` directory.
       dockerfile: Dockerfile
       args:
-        REACT_APP_API_BASE_URL: http://127.0.0.1:9090/api
+        REACT_APP_API_BASE_URL: "${REACT_APP_API_BASE_URL}"
     ports:
-      - "8080:80" # Forward the exposed port 8080 on the container to port 80 on the host machine
+      - "80:80" # Forward the exposed port 8080 on the container to port 80 on the host machine
     restart: always
     depends_on:
       - app-server
