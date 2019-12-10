@@ -56,7 +56,6 @@ services:
       - db-data:/var/lib/mysql
     networks:
       - backend  
-    image:  isergeyam/battleship_db
   
 # Volumes
 volumes:
