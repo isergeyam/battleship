@@ -22,6 +22,7 @@ services:
     networks: # Networks to join (Services on the same network can communicate with each other using their name)
       - backend
       - frontend
+    image:  isergeyam/battleship_server
 
   # Frontend Service 
   app-client:
@@ -37,6 +38,7 @@ services:
       - app-server
     networks:
       - frontend  
+    image:  isergeyam/battleship_client
 
 
   # Database Service (Mysql)
@@ -54,6 +56,7 @@ services:
       - db-data:/var/lib/mysql
     networks:
       - backend  
+    image:  isergeyam/battleship_db
   
 # Volumes
 volumes:
