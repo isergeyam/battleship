@@ -8,6 +8,8 @@ import com.isergeyam.battleship.model.User;
 import com.isergeyam.battleship.repository.GameRepository;
 import com.isergeyam.battleship.repository.UserRepository;
 
+import org.jboss.logging.Logger;
+import org.jboss.logging.Logger.Level;
 import org.springframework.data.util.Pair;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.context.request.async.DeferredResult;
@@ -68,8 +70,10 @@ public class UserGamePlayer extends GamePlayer {
 
   @Override
   public void TakeTurn(Pair<Integer, Integer> turn) {
+    Logger logger = Logger.getLogger(UserGamePlayer.class);
     UserRepository userRepository = SpringContext.getBean(UserRepository.class);
     HitResult result = enemyPlayer.getBoard().Hit(turn);
+    logger.log(Level.DEBUG, "This is result: " + result.toString());
     if (enemyPlayer.getBoard().AllSunk()) {
       output.setResult(ResponseEntity.ok(new ApiResponse<>(true, "win", "win")));
       Game new_game = new Game(this.getUser(), ((UserGamePlayer) this.enemyPlayer).getUser());
@@ -78,8 +82,10 @@ public class UserGamePlayer extends GamePlayer {
       user.setGamesWon(user.getGamesWon() + 1);
       userRepository.save(user);
     } else {
+      logger.log(Level.DEBUG, "Returning hit result");
       output.setResult(ResponseEntity.ok(new ApiResponse<>(true, "hit result", result)));
     }
+    logger.log(Level.DEBUG, "Notifying enemy");
     enemyPlayer.NotifyTurn(result);
   }
 
