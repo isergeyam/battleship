@@ -7,6 +7,7 @@ import com.isergeyam.battleship.model.User;
 
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
 
 /**
  * UserRepository
@@ -32,4 +33,6 @@ public interface UserRepository extends CrudRepository<User, Integer> {
   @Query(value = "SELECT 100 * (games_won / games_played) FROM  user ORDER BY 100 * (user.games_won / user.games_played) DESC LIMIT 10", nativeQuery = true)
   List<Integer> findTopResults();
 
+  @Query(value= "SELECT 100 * (games_won / games_played) FROM user WHERE user.id = :id", nativeQuery = true)
+  Optional<Long> getUserWinrate(@Param("id") Integer id);
 }

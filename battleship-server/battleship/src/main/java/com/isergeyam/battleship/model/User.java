@@ -54,8 +54,4 @@ public class User {
     this.email = email;
     this.password = password;
   }
-
-  public Long GetWinRate() {
-    return this.gamesWon * 100 / this.gamesPlayed;
-  }
 }

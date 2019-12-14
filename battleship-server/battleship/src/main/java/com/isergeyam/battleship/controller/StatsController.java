@@ -2,6 +2,7 @@ package com.isergeyam.battleship.controller;
 
 import java.util.ArrayList;
 import java.util.Hashtable;
+import java.util.Optional;
 
 import javax.validation.Valid;
 
@@ -54,8 +55,9 @@ public class StatsController {
       winners.add(userRepository.findById(game.get(0)).get().getUsername());
       losers.add(userRepository.findById(game.get(1)).get().getUsername());
     });
+    Optional<Long> winrate = userRepository.getUserWinrate(user.getId());
     return ResponseEntity.ok().body(new ApiResponse<>(true, "Stats collected", new StatsResponse(
-       user.getGamesPlayed() == null || user.getGamesWon() == 0 ? 0 : user.getGamesWon() / user.getGamesPlayed() * 100, winners, losers)));
+      winrate.isPresent() ? winrate.get() :  0, winners, losers)));
   }
 
 }
