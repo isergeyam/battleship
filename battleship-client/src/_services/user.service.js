@@ -71,9 +71,9 @@ function get_top_players(dispatch) {
 }
 
 function get_player_stats(dispatch, token) {
-    return axios.post("/stats", { token: token, another_field: ""})
+    return axios.post("/stats", { token: token, another_field: "" })
         .then(handleResponse)
-        .catch(handleResponse)
+        .catch(error => handleResponse(error.response))
         .then((data) => {
             let winners = data.winners;
             let loser = data.losers;

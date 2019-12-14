@@ -130,7 +130,7 @@ export function submitTurnOnServer(turn_x, turn_y, token, waitTurn) {
     turn_data['token'] = token
     axios.post('/game/turn', turn_data)
       .then(userService.handleResponse)
-      .catch(userService.handleResponse)
+      .catch(error => handleResponse(error.response))
       .then(response => {
         console.log('Turn response: ', response);
         dispatch(setIsPlaying(false));
@@ -149,6 +149,7 @@ export function waitTurn(token) {
     console.log('Waiting for enemy turn...');
     axios.post('/game/wait', { token: token, another_field: "" })
       .then(userService.handleResponse)
+      .catch(error => handleResponse(error.response))
       .then(response => {
         console.log('Wait for turn response: ', response);
         if (response == "lose") {
