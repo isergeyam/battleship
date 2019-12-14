@@ -57,7 +57,7 @@ public class StatsController {
     });
     Optional<Long> winrate = userRepository.getUserWinrate(user.getId());
     return ResponseEntity.ok().body(new ApiResponse<>(true, "Stats collected", new StatsResponse(
-      winrate.isPresent() ? winrate.get() :  0, winners, losers)));
+      winrate.isPresent() ? winrate.get() :  Long.valueOf(0), winners, losers)));
   }
 
 }
