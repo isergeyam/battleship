@@ -14,3 +14,4 @@ export const PROCESS_TURN = 'PROCESS_TURN';
 export const PROCESS_ENEMY_TURN = 'PROCESS_ENEMY_TURN';
 export const SENDING_REQUEST = 'SENDING_REQUEST';
 export const CLEAR_GAME = 'CLEAR_GAME';
+export const CLEAR_SHIP = 'CLEAR_SHIP';

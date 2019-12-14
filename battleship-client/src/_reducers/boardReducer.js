@@ -2,10 +2,11 @@ import {
   SELECT_SHIP,
   SET_ORIENTATION,
   SET_SHIP,
+  CLEAR_SHIP
 } from '../_helpers/action-types';
 import { SHIP_LENGTHS } from '../_constants';
 
-export const boardReducer = (state = {
+const initialState = {
   orientation: '',
   board: Array(10).fill(Array(10).fill("")),
   playerOne: {},
@@ -13,7 +14,9 @@ export const boardReducer = (state = {
   selecting: true,
   shipSelected: '',
   shipLength: '',
-}, action) => {
+}
+
+export const boardReducer = (state = { ...initialState }, action) => {
   switch (action.type) {
     case SET_ORIENTATION:
       return {
@@ -33,6 +36,8 @@ export const boardReducer = (state = {
         shipSelected: '',
         shipLength: '',
       };
+    case CLEAR_SHIP:
+      return { ...initialState }
     default:
       return state;
   }
@@ -41,7 +46,7 @@ export const boardReducer = (state = {
 const setShipsCoordinates = (state, action) => {
   switch (action.type) {
     case SET_SHIP:
-      return {...state, [action.payload.coordinates]: action.payload.shipName};
+      return { ...state, [action.payload.coordinates]: action.payload.shipName };
     default:
       return state;
   }

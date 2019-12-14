@@ -63,7 +63,7 @@ public class UserGamePlayer extends GamePlayer {
   @Override
   public synchronized void NotifyTurn(HitResult result) {
     this.opt_result = Optional.of(result);
-    notify();
+    notifyAll();
   }
 
   @Override

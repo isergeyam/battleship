@@ -18,7 +18,8 @@ import {
   PROCESS_TURN,
   PROCESS_ENEMY_TURN,
   SENDING_REQUEST,
-  CLEAR_GAME
+  CLEAR_GAME,
+  CLEAR_SHIP
 } from '../_helpers/action-types';
 import axios from '../_helpers/axios';
 import { alertActions } from './alert.actions';
@@ -118,6 +119,16 @@ export function SubmitOnServer(ships, token) {
       })
   };
 };
+
+export function clearShipsPayload() {
+  return { type: CLEAR_SHIP }
+}
+
+export function clearShips() {
+  dispatch => {
+    dispatch(clearShipsPayload());
+  }
+}
 
 export function setSendingRequest(value) {
   return { type: SENDING_REQUEST, payload: { value } };

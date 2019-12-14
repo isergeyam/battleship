@@ -3,7 +3,8 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import {
     SubmitOnServer,
-    setShip
+    setShip,
+    clearShips
 } from '../_actions';
 import Board from '../_components/Board';
 import Button from '../_components/Button';
@@ -52,7 +53,7 @@ class SetUpContainer extends React.Component {
             playerToken,
             SubmitOnServer
         } = this.props;
-
+        clearShips();
         SubmitOnServer(playerShips, playerToken);
     };
 
@@ -177,6 +178,7 @@ const mapDispatchToProps = (dispatch) => {
     return bindActionCreators({
         SubmitOnServer,
         setShip,
+        clearShips,
     }, dispatch);
 };
 
