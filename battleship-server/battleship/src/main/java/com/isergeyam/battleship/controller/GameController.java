@@ -44,7 +44,7 @@ public class GameController {
   @PostMapping("/start")
   public DeferredResult<ResponseEntity<?>> startGame(@Valid @RequestBody StartGameRequest startGameRequest) {
     String token = startGameRequest.getToken();
-    DeferredResult<ResponseEntity<?>> output = new DeferredResult<>(Long.valueOf(100500));
+    DeferredResult<ResponseEntity<?>> output = new DeferredResult<>(Long.valueOf(10050000));
     if (!currentlyLoggedUser.containsKey(token)) {
       output.setResult(
           new ResponseEntity<>(new ApiResponse<>(false, "Unathorized", "Unathorized"), HttpStatus.UNAUTHORIZED));
@@ -67,7 +67,7 @@ public class GameController {
   @PostMapping("/wait")
   public DeferredResult<ResponseEntity<?>> waitForTurn(@Valid @RequestBody TokenRequest tokenRequest) {
     String token = tokenRequest.getToken().replaceAll("^\"|\"$", "");
-    DeferredResult<ResponseEntity<?>> output = new DeferredResult<>(Long.valueOf(100500));
+    DeferredResult<ResponseEntity<?>> output = new DeferredResult<>(Long.valueOf(10050000));
     if (!currentlyLoggedUser.containsKey(token)) {
       output.setResult(
           new ResponseEntity<>(new ApiResponse<>(false, "Unathorized", "Unathorized"), HttpStatus.UNAUTHORIZED));
@@ -89,7 +89,7 @@ public class GameController {
   @PostMapping("/turn")
   public DeferredResult<ResponseEntity<?>> makeTurn(@Valid @RequestBody TurnRequest turnRequest) {
     String token = turnRequest.getToken();
-    DeferredResult<ResponseEntity<?>> output = new DeferredResult<>(Long.valueOf(100500));
+    DeferredResult<ResponseEntity<?>> output = new DeferredResult<>(Long.valueOf(10050000));
     if (!currentlyLoggedUser.containsKey(token)) {
       output.setResult(
           new ResponseEntity<>(new ApiResponse<>(false, "Unathorized", "Unathorized"), HttpStatus.UNAUTHORIZED));
