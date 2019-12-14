@@ -6,17 +6,19 @@ import {
 } from '../_helpers/action-types';
 import { SHIP_LENGTHS } from '../_constants';
 
-const initialState = {
-  orientation: '',
-  board: Array(10).fill(Array(10).fill("")),
-  playerOne: {},
-  playerTwo: {},
-  selecting: true,
-  shipSelected: '',
-  shipLength: '',
+function initialState() {
+  return {
+    orientation: '',
+    board: Array(10).fill(Array(10).fill("")),
+    playerOne: {},
+    playerTwo: {},
+    selecting: true,
+    shipSelected: '',
+    shipLength: '',
+  }
 }
 
-export const boardReducer = (state = { ...initialState }, action) => {
+export const boardReducer = (state = initialState(), action) => {
   switch (action.type) {
     case SET_ORIENTATION:
       return {
@@ -37,7 +39,7 @@ export const boardReducer = (state = { ...initialState }, action) => {
         shipLength: '',
       };
     case CLEAR_SHIP:
-      return { ...initialState }
+      return initialState()
     default:
       return state;
   }

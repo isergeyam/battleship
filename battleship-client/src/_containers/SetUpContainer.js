@@ -4,7 +4,8 @@ import { connect } from 'react-redux';
 import {
     SubmitOnServer,
     setShip,
-    clearShips
+    clearShips,
+    clearGameAction
 } from '../_actions';
 import Board from '../_components/Board';
 import Button from '../_components/Button';
@@ -51,9 +52,12 @@ class SetUpContainer extends React.Component {
         const {
             playerShips,
             playerToken,
-            SubmitOnServer
+            SubmitOnServer,
+            clearShips,
+            clearGameAction
         } = this.props;
         clearShips();
+        clearGameAction();
         SubmitOnServer(playerShips, playerToken);
     };
 
@@ -179,6 +183,7 @@ const mapDispatchToProps = (dispatch) => {
         SubmitOnServer,
         setShip,
         clearShips,
+        clearGameAction
     }, dispatch);
 };
 

@@ -102,7 +102,9 @@ public class GameController {
     }
     UserGamePlayer player = (UserGamePlayer) gamePlayers.get(token);
     player.setOutput(output);
-    player.TakeTurn(turnRequest.getTurn());
+    ForkJoinPool.commonPool().submit(() -> {
+      player.TakeTurn(turnRequest.getTurn());
+    });
     return output;
   }
 }

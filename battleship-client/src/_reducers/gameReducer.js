@@ -12,21 +12,23 @@ import {
   CLEAR_GAME
 } from '../_helpers';
 
-const initialState = {
-  gameOver: false,
-  isPlaying: true,
-  message: '',
-  playerOneName: '',
-  playerOne: [],
-  playerTwoName: '',
-  playerTwo: [],
-  playerTurn: 'playerOne',
-  attacks: [],
-  enemyAttacks: [],
-  sendingRequest: false
+function initialState() {
+  return {
+    gameOver: false,
+    isPlaying: true,
+    message: '',
+    playerOneName: '',
+    playerOne: [],
+    playerTwoName: '',
+    playerTwo: [],
+    playerTurn: 'playerOne',
+    attacks: [],
+    enemyAttacks: [],
+    sendingRequest: false
+  }
 };
 
-export const gameReducer = (state = { ...initialState }, action) => {
+export const gameReducer = (state = initialState(), action) => {
   switch (action.type) {
     case END_GAME:
       return {
@@ -93,7 +95,7 @@ export const gameReducer = (state = { ...initialState }, action) => {
       return { ...state, sendingRequest: value }
     }
     case CLEAR_GAME: {
-      return { ...initialState }
+      return initialState();
     }
     default:
       return state;
