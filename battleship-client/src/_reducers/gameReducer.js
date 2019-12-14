@@ -8,10 +8,11 @@ import {
   UPDATE_MESSAGE,
   PROCESS_TURN,
   PROCESS_ENEMY_TURN,
-  SENDING_REQUEST
+  SENDING_REQUEST,
+  CLEAR_GAME
 } from '../_helpers';
 
-export const gameReducer = (state = {
+const initialState = {
   gameOver: false,
   isPlaying: true,
   message: '',
@@ -23,7 +24,9 @@ export const gameReducer = (state = {
   attacks: [],
   enemyAttacks: [],
   sendingRequest: false
-}, action) => {
+};
+
+export const gameReducer = (state = { ...initialState }, action) => {
   switch (action.type) {
     case END_GAME:
       return {
@@ -88,6 +91,9 @@ export const gameReducer = (state = {
     case SENDING_REQUEST: {
       let { value } = action.payload;
       return { ...state, sendingRequest: value }
+    }
+    case CLEAR_GAME: {
+      return { ...initialState }
     }
     default:
       return state;

@@ -17,7 +17,8 @@ import {
   UPDATE_MESSAGE,
   PROCESS_TURN,
   PROCESS_ENEMY_TURN,
-  SENDING_REQUEST
+  SENDING_REQUEST,
+  CLEAR_GAME
 } from '../_helpers/action-types';
 import axios from '../_helpers/axios';
 import { alertActions } from './alert.actions';
@@ -136,6 +137,7 @@ export function submitTurnOnServer(turn_x, turn_y, token, waitTurn) {
         dispatch(setIsPlaying(false));
         if (response == "win") {
           dispatch(updateMessage('YOU WIN!!!'));
+          dispatch(clearGame());
           return;
         }
         dispatch(renderTurn(response['hit'], response['sunk'], turn_x, turn_y));
@@ -154,6 +156,7 @@ export function waitTurn(token) {
         console.log('Wait for turn response: ', response);
         if (response == "lose") {
           dispatch(updateMessage("YOU LOSE!!!"));
+          dispatch(clearGame());
           return;
         }
         const { hit, sunk, coords } = response;
@@ -169,6 +172,10 @@ export function renderTurn(hit, sunk, turn_x, turn_y) {
 
 export function renderEnemyTurn(hit, sunk, turn_x, turn_y) {
   return { type: PROCESS_ENEMY_TURN, payload: { hit, sunk, turn_x, turn_y } }
+}
+
+export function clearGame() {
+  return { type: CLEAR_GAME }
 }
 
 export function setPlayerNames(playerOne, playerTwo) {
