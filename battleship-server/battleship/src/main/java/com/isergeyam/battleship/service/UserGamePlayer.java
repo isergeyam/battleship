@@ -70,7 +70,6 @@ public class UserGamePlayer extends GamePlayer {
   public void TakeTurn(Pair<Integer, Integer> turn) {
     UserRepository userRepository = SpringContext.getBean(UserRepository.class);
     HitResult result = enemyPlayer.getBoard().Hit(turn);
-    enemyPlayer.NotifyTurn(result);
     if (enemyPlayer.getBoard().AllSunk()) {
       output.setResult(ResponseEntity.ok(new ApiResponse<>(true, "win", "win")));
       Game new_game = new Game(this.getUser(), ((UserGamePlayer) this.enemyPlayer).getUser());
@@ -81,6 +80,7 @@ public class UserGamePlayer extends GamePlayer {
     } else {
       output.setResult(ResponseEntity.ok(new ApiResponse<>(true, "hit result", result)));
     }
+    enemyPlayer.NotifyTurn(result);
   }
 
   @Override
