@@ -27,8 +27,6 @@ class Body extends React.Component {
             <div className="main">
                 <div className="row">
                     <div className="column-left">
-                        <h1>{width}</h1>
-                        <h1>{height}</h1>
                         <h2>Welcome!</h2>
                         <h3>This is battleship game.</h3>
                     </div>
