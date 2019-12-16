@@ -10,7 +10,7 @@ class Header extends React.Component {
     render() {
         return (
             <div className="topnav">
-                <Link to={"/"} class='active'>Home</Link>
+                <Link to={"/"} className='active'>Home</Link>
                 <Link to={"/login"}>Logout</Link>
             </div >
         );
