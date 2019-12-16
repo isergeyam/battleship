@@ -7,7 +7,7 @@
   },
   "license": "MIT",
   "scripts": {
-    "build": "webpack --mode production",
+    "build": "webpack",
     "start": "webpack-dev-server --hot --inline"
   },
   "dependencies": {
