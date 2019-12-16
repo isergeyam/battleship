@@ -103,7 +103,9 @@ class GameContainer extends React.Component {
     };
 
     mouseOverHandler = (e) => {
-        e.target.classList.toggle('highlight');
+        if (this.props.isPlaying) {
+            e.target.classList.toggle('highlight');
+        }
     };
 
     render() {
@@ -124,7 +126,7 @@ class GameContainer extends React.Component {
                         <div className='row'>
                             <div className='column-left_game'>
                                 <Board
-                                    board={board}z
+                                    board={board} z
                                     clickHandler={this.clickHandler}
                                     mouseOverHandler={this.mouseOverHandler}
                                 />
@@ -133,7 +135,7 @@ class GameContainer extends React.Component {
                                 <Board
                                     board={board}
                                     clickHandler={(e) => { }}
-                                    mouseOverHandler={(e) => { }}/>
+                                    mouseOverHandler={(e) => { }} />
                             </div>
                         </div>
                     </div>
