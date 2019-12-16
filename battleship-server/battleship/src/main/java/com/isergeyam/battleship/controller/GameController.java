@@ -1,7 +1,6 @@
 package com.isergeyam.battleship.controller;
 
 import java.util.Hashtable;
-import java.util.concurrent.ForkJoinPool;
 
 import javax.validation.Valid;
 
@@ -80,9 +79,9 @@ public class GameController {
     }
     UserGamePlayer player = (UserGamePlayer) gamePlayers.get(token);
     player.setOutput(output);
-    ForkJoinPool.commonPool().submit(() -> {
+    new Thread(() -> {
       player.WaitTurn();
-    });
+    }).start();
     return output;
   }
 
@@ -102,9 +101,9 @@ public class GameController {
     }
     UserGamePlayer player = (UserGamePlayer) gamePlayers.get(token);
     player.setOutput(output);
-    ForkJoinPool.commonPool().submit(() -> {
+    new Thread(() -> {
       player.TakeTurn(turnRequest.getTurn());
-    });
+    }).start();
     return output;
   }
 }
