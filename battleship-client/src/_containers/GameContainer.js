@@ -121,15 +121,21 @@ class GameContainer extends React.Component {
                     <div className='game-main'>
                         <h1>{playerName}</h1>
                         {<Message message={message} isPlaying={isPlaying} />}
-                        <Board
-                            board={board}
-                            clickHandler={this.clickHandler}
-                            mouseOverHandler={this.mouseOverHandler}
-                        />
-                        <Board
-                            board={board}
-                            clickHandler={(e) => { }}
-                            mouseOverHandler={(e) => { }} />
+                        <div className='row'>
+                            <div className='column-left_game'>
+                                <Board
+                                    board={board}z
+                                    clickHandler={this.clickHandler}
+                                    mouseOverHandler={this.mouseOverHandler}
+                                />
+                            </div>
+                            <div className='column-left_game'>
+                                <Board
+                                    board={board}
+                                    clickHandler={(e) => { }}
+                                    mouseOverHandler={(e) => { }}/>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

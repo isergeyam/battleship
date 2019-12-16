@@ -33,9 +33,9 @@ class HomePage extends React.Component {
                 <div className="col-md-7 col-md-offset-2">
 
                     <Header />
-                    <div className='home-main'>
-                        <div className='home-row'>
-                            <div className='home-left_column'>
+                    <div className='main'>
+                        <div className='row'>
+                            <div className='column-left'>
                                 <h1>Hi {user.username}!</h1>
                                 <p>You're logged in with React!!</p>
                                 <p className='link'>
@@ -48,7 +48,7 @@ class HomePage extends React.Component {
                                     <Link to="/ready/player">Resume Game</Link>
                                 </p>
                             </div>
-                            <div className='home-right_column'>
+                            <div className='column-right'>
                                 <Stats />
                             </div>
                         </div>

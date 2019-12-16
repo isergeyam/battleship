@@ -20,13 +20,13 @@ class Header extends React.Component {
 class Body extends React.Component {
     render() {
         return (
-            <div className="main-main">
-                <div className="main-row">
-                    <div className="main-left_column">
+            <div className="main">
+                <div className="row">
+                    <div className="column-left">
                         <h2>Welcome!</h2>
                         <h3>This is battleship game.</h3>
                     </div>
-                    <div className="main-right_column">
+                    <div className="column-right">
                         <TopPlayers />
                     </div>
                 </div>

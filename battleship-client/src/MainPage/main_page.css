@@ -7,31 +7,6 @@ ul {
   padding-left: 10px;
 }
 
-
-.main-main {
-  flex: 0%;
-  background: linear-gradient(#2d2e83, #57589c);
-  padding: 2%;
-}
-
-.main-left_column {
-  width: 70%;
-  padding: 10px;
-  background-color: #edeff0;
-}
-
-.main-right_column {
-  padding: 10px;
-  width: 30%;
-  background-color: #edeff0;
-}
-
-
-.main-row {  
-  display: flex;
-}
-
-
 .link {
   color: white;
 }

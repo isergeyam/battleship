@@ -52,7 +52,7 @@ class LoginPage extends React.Component {
         return (
             <div className="col-md-7 col-md-offset-2">
                 <Header />
-                <div className='home-main'>
+                <div className='main'>
                     <div className='log-main'>
                         <h2>Login</h2>
                         <form name="form" onSubmit={this.handleSubmit}>
