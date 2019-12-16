@@ -184,7 +184,7 @@ tr {
   width: 100%;
 }
 
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width: 1500px) {
   .column-left {width: 70%;}
   .column-right {width: 30%;}
   .column-left_game {width: 50%;}
